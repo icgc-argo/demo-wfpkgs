@@ -1,0 +1,33 @@
+{
+    "name": "utils",
+    "version": "1.0.0",
+    "description": "Package for some helper utilities",
+    "main": "main.nf",
+    "scripts": {
+        "test": "tests/checker.nf *.nf.json"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/icgc-argo/demo-wf-pkgs.git",
+        "path": "utils"
+    },
+    "deprecated": false,
+    "keywords": [
+        "bioinformatics",
+        "utilities",
+        "secondary file"
+    ],
+    "contributors": [
+        {
+            "name": "Junjun Zhang",
+            "email": "junjun.zhang@oicr.on.ca"
+        }
+    ],
+    "license": "AGPL-3.0",
+    "bugs": {
+        "url": "https://github.com/icgc-argo/demo-wf-pkgs/issues"
+    },
+    "homepage": "https://github.com/icgc-argo/demo-wf-pkgs#readme",
+    "dependencies": {
+    }
+}

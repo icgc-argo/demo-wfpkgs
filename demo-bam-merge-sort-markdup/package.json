@@ -1,0 +1,41 @@
+{
+    "name": "bam-merge-sort-markdup",
+    "version": "0.1.11.0",
+    "description": "Merge multiple aligned BAMs, sort by coordinate and perform markduplicate",
+    "main": "bam-merge-sort-markdup.nf",
+    "scripts": {
+        "test": "tests/checker.nf *.nf.json"
+    },
+    "deprecated": false,
+    "keywords": [
+        "bioinformatics",
+        "alignment"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/icgc-argo/demo-wf-pkgs.git",
+        "path": "bam-merge-sort-markdup"
+    },
+    "contributors": [
+        {
+            "name": "Junjun Zhang",
+            "email": "junjun.zhang@oicr.on.ca"
+        },
+        {
+            "name": "Linda Xiang",
+            "email": "linda.xiang@oicr.on.ca"
+        }
+    ],
+    "license": "AGPL-3.0",
+    "bugs": {
+        "url": "https://github.com/icgc-argo/demo-wf-pkgs/issues"
+    },
+    "homepage": "https://github.com/icgc-argo/demo-wf-pkgs#readme",
+    "dependencies": {},
+    "devDependencies": {
+        "github.com/icgc-argo/wfpr/demo-utils": "1.0.0"
+    },
+    "localDependencies": {
+        "github.com/icgc-argo/wfpr/demo-utils@1.0.0": "../demo-utils"
+    }
+}

@@ -1,0 +1,41 @@
+{
+    "name": "aligned-seq-qc",
+    "version": "0.2.2.1",
+    "description": "Collect QC metrics from aligned sequencing reads",
+    "main": "aligned-seq-qc.nf",
+    "scripts": {
+        "test": "tests/checker.nf *.nf.json"
+    },
+    "deprecated": false,
+    "keywords": [
+        "bioinformatics",
+        "alignment"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/icgc-argo/demo-wf-pkgs.git",
+        "path": "aligned-seq-qc"
+    },
+    "contributors": [
+        {
+            "name": "Junjun Zhang",
+            "email": "junjun.zhang@oicr.on.ca"
+        },
+        {
+            "name": "Linda Xiang",
+            "email": "linda.xiang@oicr.on.ca"
+        }
+    ],
+    "license": "AGPL-3.0",
+    "bugs": {
+        "url": "https://github.com/icgc-argo/demo-wf-pkgs/issues"
+    },
+    "homepage": "https://github.com/icgc-argo/demo-wf-pkgs#readme",
+    "dependencies": {},
+    "devDependencies": {
+        "github.com/icgc-argo/wfpr/demo-utils": "1.0.0"
+    },
+    "localDependencies": {
+        "github.com/icgc-argo/wfpr/demo-utils@1.0.0": "../demo-utils"
+    }
+}
