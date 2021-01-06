@@ -22,33 +22,32 @@
  *   Junjun Zhang <junjun.zhang@oicr.on.ca>
  */
 
-
-nextflow.enable.dsl=2
-
-params.aligned_lane_bams = ""
-params.ref_genome_gz = ""
-params.tempdir = "NO_DIR"
-
-include { bamMergeSortMarkdup } from '../bam-merge-sort-markdup.nf' params(params)
-include { getSecondaryFiles } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-utils@1.0.0/main.nf'
+nextflow.enable.dsl = 2
 
 
-Channel
-  .fromPath(params.aligned_lane_bams, checkIfExists: true)
-  .set { aligned_lane_bams_ch }
+// generate dummy file to test cleanupWorkdir
+process filesExist {
+    input:
+        val file_names  // file name shall not have spaces
+        val expect  // true for files exist; false for files not exist
+        path files
+        val dependency_flag
 
-Channel
-  .fromPath(getSecondaryFiles(params.ref_genome_gz, ['fai', 'gzi']), checkIfExists: true)
-  .set { ref_genome_gz_idx_ch }
-
-
-// will not run when import as module
-workflow {
-  main:
-    bamMergeSortMarkdup(
-      aligned_lane_bams_ch.collect(),  // all lane bams to be merged
-      file(params.ref_genome_gz),
-      ref_genome_gz_idx_ch.collect(),
-      file(params.tempdir)
-    )
+    script:
+        file_name_arg = file_names instanceof List ? file_names.join(" ") : file_names
+        """
+        if [[ "${expect}" = "exist"  ]]; then
+            for f in \$(echo "${file_name_arg}"); do
+                if [[ ! -f \$f ]]; then
+                    exit "Expected \$f not exists."
+                fi
+            done
+        else
+            for f in \$(echo "${file_name_arg}"); do
+                if [[ -f \$f ]]; then
+                    exit "Unexpected \$f exists."
+                fi
+            done
+        fi
+        """
 }

@@ -1,20 +1,22 @@
 {
-    "name": "aligned-seq-qc",
+    "name": "demo-aligned-seq-qc",
     "version": "0.2.2.1",
     "description": "Collect QC metrics from aligned sequencing reads",
     "main": "aligned-seq-qc.nf",
     "scripts": {
-        "test": "tests/checker.nf *.nf.json"
+        "test": "pushd tests && ./run_tests.sh; popd"
     },
     "deprecated": false,
     "keywords": [
         "bioinformatics",
-        "alignment"
+        "alignment",
+        "qc",
+        "metrics"
     ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/icgc-argo/demo-wf-pkgs.git",
-        "path": "aligned-seq-qc"
+        "path": "demo-aligned-seq-qc"
     },
     "contributors": [
         {

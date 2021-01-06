@@ -1,26 +1,24 @@
 {
-    "name": "dna-seq-alignment",
+    "name": "demo-dna-seq-alignment-wf",
     "version": "0.1.12.0",
-    "description": "BWA MEM Aligner",
-    "main": "dna-seq-alignment.nf",
+    "description": "DNA Seq Alignment Workflow with QC Metrics Collection",
+    "main": "main.nf",
     "scripts": {
-        "test": "tests/checker.nf *.nf.json"
+        "test": "pushd tests && ./run_tests.sh; popd"
     },
     "deprecated": false,
     "keywords": [
         "bioinformatics",
-        "DNA-Seq",
-        "alignment"
+        "dna-seq",
+        "alignment",
+        "bwa",
+        "markduplicate",
+        "qc metrics"
     ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/icgc-argo/demo-wf-pkgs.git",
-        "path": "dna-seq-alignment"
-    },
-    "container_image": {
-        "image_uri": "quay.io/icgc-argo/dna-seq-alignment",
-        "hash": "b392c1230d95",
-        "tag": "dna-seq-alignment.0.1.12.0"
+        "path": "demo-dna-seq-alignment-wf"
     },
     "contributors": [
         {
@@ -39,7 +37,7 @@
         "github.com/icgc-argo/wfpr/demo-utils": "1.0.0"
     },
     "localDependencies": {
-        "github.com/icgc-argo/wfpr/demo-dna-seq-alignment@1.5.5": "../demo-dna-seq-alignment",
+        "github.com/icgc-argo/wfpr/demo-dna-seq-alignment@1.5.5": "../demo-dna-seq-alignment-wf",
         "github.com/icgc-argo/wfpr/demo-aligned-seq-qc@0.2.2.1": "../demo-aligned-seq-qc",
         "github.com/icgc-argo/wfpr/demo-utils@1.0.0": "../demo-utils"
     }

@@ -1,26 +1,23 @@
 {
-    "name": "dna-seq-alignment",
+    "name": "demo-dna-seq-alignment",
     "version": "0.1.12.0",
-    "description": "BWA MEM Aligner",
-    "main": "dna-seq-alignment.nf",
+    "description": "DNA Seq Alignment Workflow",
+    "main": "main.nf",
     "scripts": {
-        "test": "tests/checker.nf *.nf.json"
+        "test": "pushd tests && ./run_tests.sh; popd"
     },
     "deprecated": false,
     "keywords": [
         "bioinformatics",
-        "DNA-Seq",
-        "alignment"
+        "dna-seq",
+        "alignment",
+        "bwa",
+        "markduplicate"
     ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/icgc-argo/demo-wf-pkgs.git",
-        "path": "dna-seq-alignment"
-    },
-    "container_image": {
-        "image_uri": "quay.io/icgc-argo/dna-seq-alignment",
-        "hash": "b392c1230d95",
-        "tag": "dna-seq-alignment.0.1.12.0"
+        "path": "demo-dna-seq-alignment"
     },
     "contributors": [
         {
@@ -44,7 +41,7 @@
     },
     "localDependencies": {
         "github.com/icgc-argo/wfpr/demo-bwa-mem-aligner@0.1.12.0": "../demo-bwa-mem-aligner",
-        "github.com/icgc-argo/wfpr/demo-bam-merge-sort-markdup@0.1.11.0": "../demo-bwa-mem-aligner",
-        "github.com/icgc-argo/wfpr/demo-utils@1.0.0": "../demo-bwa-mem-aligner"
+        "github.com/icgc-argo/wfpr/demo-bam-merge-sort-markdup@0.1.11.0": "../demo-bam-merge-sort-markdup",
+        "github.com/icgc-argo/wfpr/demo-utils@1.0.0": "../demo-utils"
     }
 }

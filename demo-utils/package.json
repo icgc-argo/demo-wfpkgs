@@ -1,21 +1,22 @@
 {
-    "name": "utils",
+    "name": "demo-utils",
     "version": "1.0.0",
-    "description": "Package for some helper utilities",
+    "description": "Package with helper utilities",
     "main": "main.nf",
     "scripts": {
-        "test": "tests/checker.nf *.nf.json"
+        "test": "pushd tests && ./run_tests.sh; popd"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/icgc-argo/demo-wf-pkgs.git",
-        "path": "utils"
+        "path": "demo-utils"
     },
     "deprecated": false,
     "keywords": [
         "bioinformatics",
         "utilities",
-        "secondary file"
+        "secondary file",
+        "workdir cleanup"
     ],
     "contributors": [
         {

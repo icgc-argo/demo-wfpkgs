@@ -91,7 +91,7 @@ workflow DnaSeqProcess {
             DnaAln.out.merged_aligned_seq,
             Channel.fromPath(ref_genome_fa + '.gz', checkIfExists: true).collect(),
             Channel.fromPath(getSecondaryFiles(ref_genome_fa + '.gz', ['fai', 'gzi']), checkIfExists: true).collect(),
-            true  // no need to wait additional process other than getting the aligned seq
+            true  // no need to wait for additional process other than getting the aligned seq
         )
 
         // cleanup workdirs

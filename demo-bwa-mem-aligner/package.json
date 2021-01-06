@@ -1,25 +1,22 @@
 {
-    "name": "bwa-mem-aligner",
+    "name": "demo-bwa-mem-aligner",
     "version": "0.1.12.0",
     "description": "BWA MEM Aligner",
     "main": "bwa-mem-aligner.nf",
     "scripts": {
-        "test": "tests/checker.nf *.nf.json"
+        "test": "pushd tests && ./run_tests.sh; popd"
     },
     "deprecated": false,
     "keywords": [
         "bioinformatics",
-        "alignment"
+        "alignment",
+        "dna-seq",
+        "bwa"
     ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/icgc-argo/demo-wf-pkgs.git",
-        "path": "bwa-mem-aligner"
-    },
-    "container_image": {
-        "image_uri": "quay.io/icgc-argo/bwa-mem-aligner",
-        "hash": "b392c1230d95",
-        "tag": "bwa-mem-aligner.0.1.12.0"
+        "path": "demo-bwa-mem-aligner"
     },
     "contributors": [
         {

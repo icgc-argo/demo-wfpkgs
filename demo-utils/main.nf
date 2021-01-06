@@ -31,6 +31,14 @@ include { cleanupWorkdir } from './local_modules/cleanup-workdir.nf'
 
 // this is kind of like CWL's secondary files
 def getSecondaryFiles(main_file, exts){
+  if (!(main_file instanceof String)) {
+    exit 1, "[getSecondaryFiles] param: main_file must be a string"
+  }
+
+  if (!(exts instanceof List)) {
+    exit 1, "[getSecondaryFiles] param: exts must be a list of strings"
+  }
+
   def secondaryFiles = []
   for (ext in exts) {
     if (ext.startsWith("^")) {

@@ -24,5 +24,81 @@
 
 
 nextflow.enable.dsl = 2
+bwaSecondaryExts = ['fai', 'sa', 'bwt', 'ann', 'amb', 'pac', 'alt']
 
-// To be completed
+params.file_name = null
+params.file_size = null
+
+include {
+    cleanupWorkdir;
+    getSecondaryFiles;
+    getBwaSecondaryFiles
+} from '../main.nf'
+
+include {
+    generateDummyFile as gFile1;
+    generateDummyFile as gFile2;
+} from './generate-dummy-file.nf'
+
+include {
+    filesExist as fExist1;
+    filesExist as fExist2;
+    filesExist as fExist3;
+    filesExist as fExist4;
+} from './files-exist.nf'
+
+Channel.from(params.file_name).set{ file_name_ch }
+Channel.from(bwaSecondaryExts).set{ bwa_ext_ch }
+
+
+workflow {
+    // generate the main file
+    gFile1(
+        file_name_ch.flatten(),
+        params.file_size
+    )
+
+    // generate the BWA secondary files
+    gFile2(
+        file_name_ch.combine(bwa_ext_ch),
+        params.file_size
+    )
+
+    // test 'getSecondaryFiles' for expected 'fai' file exists
+    fExist1(
+        getSecondaryFiles(params.file_name, ['fai']),
+        'exist',
+        gFile2.out.file.collect(),
+        true  // no need to wait
+    )
+
+    // test 'getBwaSecondaryFiles' for all expected bwa secondary files exist
+    fExist2(
+        getBwaSecondaryFiles(params.file_name).collect(),
+        'exist',
+        gFile2.out.file.collect(),
+        true  // no need to wait
+    )
+
+    // perform cleanup in gFile1 workdir
+    cleanupWorkdir(
+        gFile1.out.collect(),
+        gFile2.out.file.collect()  // flag enables waiting for gFile2 before cleaning up gFile1 workdir
+    )
+
+    // test cleaned up workdir from gFile1 indeed does not have previous files
+    fExist3(
+        gFile1.out.collect(),
+        'not_exist',
+        gFile1.out.collect(),
+        cleanupWorkdir.out  // wait for cleanup is done
+    )
+
+    // test not cleaned up workdir from gFile2 indeed still have the exptected files
+    fExist4(
+        gFile2.out.collect(),
+        'exist',
+        gFile2.out.collect(),
+        cleanupWorkdir.out  // wait for cleanup is done
+    )
+}

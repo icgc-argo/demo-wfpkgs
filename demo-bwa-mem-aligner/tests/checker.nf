@@ -37,20 +37,21 @@ include { getBwaSecondaryFiles } from './wfpr_modules/github.com/icgc-argo/wfpr/
 
 
 Channel
-  .fromPath(getBwaSecondaryFiles(params.ref_genome_gz), checkIfExists: true)
-  .set { ref_genome_gz_ch }
-
-Channel
   .fromPath(params.input_bam, checkIfExists: true)
   .set { input_bam_ch }
+
+Channel
+  .fromPath(getBwaSecondaryFiles(params.ref_genome_gz), checkIfExists: true)
+  .set { ref_genome_gz_idx_ch }
+
 
 // will not run when import as module
 workflow {
   main:
     bwaMemAligner(
-      input_bam_ch,
+      input_bam_ch.flatten(),
       file(params.ref_genome_gz),
-      ref_genome_gz_ch.collect(),
+      ref_genome_gz_idx_ch.collect(),
       file(params.sequencing_experiment_metadata),
       file(params.tempdir),
       true

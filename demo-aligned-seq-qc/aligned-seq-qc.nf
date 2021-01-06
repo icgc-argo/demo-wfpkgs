@@ -37,7 +37,9 @@ params.mem = 2  // in GB
 
 process alignedSeqQC {
   container "quay.io/icgc-argo/aligned-seq-qc:aligned-seq-qc.${params.container_version ?: version}"
-  publishDir "${params.publish_dir}/${task.process.replaceAll(':', '_')}", mode: "copy", enabled: "${params.publish_dir ? true : ''}"
+  publishDir "${params.publish_dir}/${task.process.replaceAll(':', '_')}",
+    mode: "copy",
+    enabled: "${params.publish_dir ? true : ''}"
 
   cpus params.cpus
   memory "${params.mem} GB"
