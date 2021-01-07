@@ -29,9 +29,9 @@ nextflow.enable.dsl = 2
 process filesExist {
     input:
         val file_names  // file name shall not have spaces
-        val expect  // true for files exist; false for files not exist
+        val expect  // 'exist' for files expected to exist; 'not_exist' for files expected not exist
         path files
-        val dependency_flag
+        val dependency_flag  // any output from process(es) you'd like to make this process depend on
 
     script:
         file_name_arg = file_names instanceof List ? file_names.join(" ") : file_names
@@ -42,12 +42,14 @@ process filesExist {
                     exit "Expected \$f not exists."
                 fi
             done
-        else
+        elif [[ "${expect}" = "not_exist"  ]]; then
             for f in \$(echo "${file_name_arg}"); do
                 if [[ -f \$f ]]; then
                     exit "Unexpected \$f exists."
                 fi
             done
+        else
+            exit "Second argument must be either 'exist' or 'not_exist'. '${expect}' is supplied."
         fi
         """
 }
