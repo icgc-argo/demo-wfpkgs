@@ -59,6 +59,13 @@ jobs:
         sudo chmod 755 nextflow
         sudo mv nextflow /usr/local/bin/
 
+    - name: Login to GitHub Packages Docker Registry
+      uses: docker/login-action@v1
+      with:
+        registry: docker.pkg.github.com
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Run tests for all packages
       if: ${{ needs.build.outputs.branch == 'main' }}
       run: |
