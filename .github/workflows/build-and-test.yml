@@ -23,15 +23,16 @@ jobs:
         echo "::set-output name=pkg_ver::$(echo $(join ${parts[@]:1:${#parts[@]}}))"
 
     - name: Build docker image and push
+      if: ${{ jobs.build.steps.get_pkg_info.branch != 'main' }}
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
         registry: docker.pkg.github.com
-        name: icgc-argo/demo-wf-pkgs/{{steps.get_pkg_info.pkg_name}}
-        username: {{ github.actor }}
-        password: {{ secrets.GITHUB_TOKEN }}
-        dockerfile: ./{{steps.get_pkg_info.pkg_name}}/Dockerfile
-        context: ./{{steps.get_pkg_info.pkg_name}}
-        tags: {{ steps.get_pkg_info.pkg_ver }}
+        name: "icgc-argo/demo-wf-pkgs/${{steps.get_pkg_info.pkg_name}}"
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        dockerfile: "./${{steps.get_pkg_info.pkg_name}}/Dockerfile"
+        context: "./${{steps.get_pkg_info.pkg_name}}"
+        tags: ${{ steps.get_pkg_info.pkg_ver }}
 
   test:
     runs-on: ubuntu-latest
