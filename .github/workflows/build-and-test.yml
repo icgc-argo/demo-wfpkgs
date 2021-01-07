@@ -32,7 +32,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         dockerfile: "./demo-utils/Dockerfile"
         context: "./demo-utils"
-        tags: ${{ steps.get_pkg_info.pkg_ver }}
+        tags: "1.0.0"
 
   test:
     runs-on: ubuntu-18.04
@@ -70,4 +70,5 @@ jobs:
     - name: Run tests for the current package only
       if: ${{ github.ref != 'refs/heads/main' }}
       run: |
-        ./demo-utils/tests/run_tests.sh
+        cd ./demo-utils/tests
+        ./run_tests.sh
