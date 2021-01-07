@@ -58,7 +58,7 @@ jobs:
         sudo mv nextflow /usr/local/bin/
 
     - name: Run tests for all packages
-      if: ${{ jobs.build.steps.get_pkg_info.branch == 'main' }}
+      if: ${{ github.ref == 'refs/heads/main' }}
       run: |
         for t in `find . -type d -name tests |sort`; do
           pushd $t
@@ -68,6 +68,6 @@ jobs:
         done
 
     - name: Run tests for the current package only
-      if: ${{ jobs.build.steps.get_pkg_info.branch != 'main' }}
+      if: ${{ github.ref != 'refs/heads/main' }}
       run: |
         ./{{jobs.build.steps.get_pkg_info.pkg_name}}/tests/run_tests.sh
