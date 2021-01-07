@@ -10,6 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: ${{ github.ref != 'refs/heads/main' }}
+    outputs:
+      branch: ${{ steps.get_pkg_info.outputs.branch }}
+      pkg_name: ${{ steps.get_pkg_info.outputs.pkg_name }}
     steps:
     - uses: actions/checkout@v2
 
@@ -22,31 +25,22 @@ jobs:
         echo "::set-output name=pkg_ver::$(echo ${GITHUB_REF#refs/heads/} |cut -d '@' -f 2)"
 
     - name: Build docker image and push
-      if: ${{ steps.get_pkg_info.branch != 'main' }}
+      if: ${{ steps.get_pkg_info.outputs.branch != 'main' }}
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
         registry: docker.pkg.github.com
-        name: "icgc-argo/demo-wf-pkgs/${{steps.get_pkg_info.pkg_name}}"
+        name: "icgc-argo/demo-wf-pkgs/${{steps.get_pkg_info.outputs.pkg_name}}"
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-        dockerfile: "./${{steps.get_pkg_info.pkg_name}}/Dockerfile"
-        context: "./${{steps.get_pkg_info.pkg_name}}"
-        tags: "${{steps.get_pkg_info.pkg_ver}}"
+        dockerfile: "./${{steps.get_pkg_info.outputs.pkg_name}}/Dockerfile"
+        context: "./${{steps.get_pkg_info.outputs.pkg_name}}"
+        tags: "${{steps.get_pkg_info.outputs.pkg_ver}}"
 
   test:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
     - uses: actions/checkout@v2
-
-    # repeat this for now
-    - name: Extract package name and version from branch name
-      id: get_pkg_info
-      shell: bash
-      run: |
-        echo "::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})"
-        echo "::set-output name=pkg_name::$(echo ${GITHUB_REF#refs/heads/} |cut -d '@' -f 1)"
-        echo "::set-output name=pkg_ver::$(echo ${GITHUB_REF#refs/heads/} |cut -d '@' -f 2)"
 
     - name: Set up Python 3.5
       uses: actions/setup-python@v2
@@ -66,7 +60,7 @@ jobs:
         sudo mv nextflow /usr/local/bin/
 
     - name: Run tests for all packages
-      if: ${{ steps.get_pkg_info.branch == 'main' }}
+      if: ${{ needs.build.outputs.branch == 'main' }}
       run: |
         for t in `find . -type d -name tests |sort`; do
           pushd $t
@@ -76,7 +70,7 @@ jobs:
         done
 
     - name: Run tests for the current package only
-      if: ${{ steps.get_pkg_info.branch != 'main' }}
+      if: ${{ needs.build.outputs.branch != 'main' }}
       run: |
-        cd ./${{steps.get_pkg_info.pkg_name}}/tests
+        cd ./${{needs.build.outputs.pkg_name}}/tests
         ./run_tests.sh
