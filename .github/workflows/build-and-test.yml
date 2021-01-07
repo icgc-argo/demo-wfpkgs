@@ -23,7 +23,7 @@ jobs:
         echo "::set-output name=pkg_ver::$(echo $(join ${parts[@]:1:${#parts[@]}}))"
 
     - name: Build docker image and push
-      if: ${{ jobs.build.steps.get_pkg_info.branch != 'main' }}
+      if: ${{ steps.get_pkg_info.branch != 'main' }}
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
         registry: docker.pkg.github.com
