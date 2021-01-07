@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
 
@@ -35,7 +35,7 @@ jobs:
         tags: ${{ steps.get_pkg_info.pkg_ver }}
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     needs: [build]
     steps:
     - uses: actions/checkout@v2
