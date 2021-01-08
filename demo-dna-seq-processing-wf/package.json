@@ -17,7 +17,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/icgc-argo/demo-wf-pkgs.git",
+        "url": "git+https://github.com/icgc-argo/demo-wfpkgs.git",
         "path": "demo-dna-seq-alignment-wf"
     },
     "contributors": [
@@ -28,9 +28,9 @@
     ],
     "license": "AGPL-3.0",
     "bugs": {
-        "url": "https://github.com/icgc-argo/demo-wf-pkgs/issues"
+        "url": "https://github.com/icgc-argo/demo-wfpkgs/issues"
     },
-    "homepage": "https://github.com/icgc-argo/demo-wf-pkgs#readme",
+    "homepage": "https://github.com/icgc-argo/demo-wfpkgs#readme",
     "dependencies": {
         "github.com/icgc-argo/wfpr/demo-dna-seq-alignment": "1.5.5",
         "github.com/icgc-argo/wfpr/demo-aligned-seq-qc": "0.2.2.1",

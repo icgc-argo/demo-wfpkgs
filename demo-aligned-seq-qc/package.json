@@ -15,7 +15,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/icgc-argo/demo-wf-pkgs.git",
+        "url": "git+https://github.com/icgc-argo/demo-wfpkgs.git",
         "path": "demo-aligned-seq-qc"
     },
     "contributors": [
@@ -30,9 +30,9 @@
     ],
     "license": "AGPL-3.0",
     "bugs": {
-        "url": "https://github.com/icgc-argo/demo-wf-pkgs/issues"
+        "url": "https://github.com/icgc-argo/demo-wfpkgs/issues"
     },
-    "homepage": "https://github.com/icgc-argo/demo-wf-pkgs#readme",
+    "homepage": "https://github.com/icgc-argo/demo-wfpkgs#readme",
     "dependencies": {},
     "devDependencies": {
         "github.com/icgc-argo/wfpr/demo-utils": "1.0.0"
