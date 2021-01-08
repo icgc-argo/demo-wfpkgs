@@ -30,10 +30,11 @@ params.cpus = 1
 params.mem = 1
 params.files_to_delete = 'NO_FILE'
 params.container_version = ''
+params.container_registry = ''
 
 
 process cleanupWorkdir {
-    container "ghcr.io/icgc-argo/demo-utils:${params.container_version ?: version}"
+    container "${params.container_registry ?: "ghcr.io"}/icgc-argo/demo-utils:${params.container_version ?: version}"
     cpus params.cpus
     memory "${params.mem} GB"
 
