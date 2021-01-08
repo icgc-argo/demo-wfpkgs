@@ -24,16 +24,17 @@
 
 
 nextflow.enable.dsl = 2
-version = '1.0.0'
+version = '1.0.1'
 
 params.cpus = 1
 params.mem = 1
 params.files_to_delete = 'NO_FILE'
-params.container_version = '1.0.0'
+params.container_version = ''
+params.container_registry = ''
 
 
 process cleanupWorkdir {
-    container "docker.pkg.github.com/icgc-argo/demo-wf-pkgs/demo-utils:${params.container_version ?: version}"
+    container "${params.container_registry ?: "ghcr.io"}/icgc-argo/demo-utils:${params.container_version ?: version}"
     cpus params.cpus
     memory "${params.mem} GB"
 
