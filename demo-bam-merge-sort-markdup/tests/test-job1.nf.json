@@ -8,5 +8,6 @@
   "tempdir": "/tmp",
   "markdup": false,
   "cpus": 1,
-  "mem": 2
+  "mem": 2,
+  "container_registry": "quay.io"
 }
