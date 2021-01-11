@@ -24,7 +24,7 @@
 
 
 nextflow.enable.dsl = 2
-version = '1.0.2'
+version = '1.0.3'
 
 params.cpus = 1
 params.mem = 1

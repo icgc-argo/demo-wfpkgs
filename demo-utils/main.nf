@@ -23,7 +23,7 @@
  */
 
 nextflow.enable.dsl = 2
-version = '1.0.2'
+version = '1.0.3'
 
 // load local process (module)
 include { cleanupWorkdir } from './local_modules/cleanup-workdir.nf'
