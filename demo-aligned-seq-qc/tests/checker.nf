@@ -28,6 +28,8 @@ nextflow.preview.dsl = 2
 params.seq = ""
 params.container_version = ""
 params.ref_genome_gz = ""
+
+params.container_registry = ""
 params.cpus = 1
 params.mem = 2  // in GB
 

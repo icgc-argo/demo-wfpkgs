@@ -1,6 +1,6 @@
 {
     "name": "demo-aligned-seq-qc",
-    "version": "0.2.2.1",
+    "version": "1.0.0",
     "description": "Collect QC metrics from aligned sequencing reads",
     "main": "aligned-seq-qc.nf",
     "scripts": {

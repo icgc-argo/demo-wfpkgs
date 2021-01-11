@@ -25,18 +25,20 @@
 
 
 nextflow.preview.dsl = 2
-version = '0.2.2.1'
+version = '1.0.0'
 
 params.seq = ""
 params.container_version = ""
 params.ref_genome_gz = ""
+
+params.container_registry = ""
 params.publish_dir = ""
 params.cpus = 1
 params.mem = 2  // in GB
 
 
 process alignedSeqQC {
-  container "quay.io/icgc-argo/aligned-seq-qc:aligned-seq-qc.${params.container_version ?: version}"
+  container "${params.container_registry ?: "quay.io"}/icgc-argo/demo-aligned-seq-qc:${params.container_version ?: version}"
   publishDir "${params.publish_dir}/${task.process.replaceAll(':', '_')}",
     mode: "copy",
     enabled: "${params.publish_dir ? true : ''}"
