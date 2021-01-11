@@ -25,7 +25,7 @@
 
 
 nextflow.enable.dsl = 2
-version = '0.1.11.0'
+version = '1.11.1'
 
 params.aligned_lane_bams = ""
 params.ref_genome_gz = ""
@@ -34,6 +34,7 @@ params.markdup = true
 params.output_format = "cram"
 params.lossy = false
 params.container_version = ""
+params.container_registry = ""
 params.cpus = 1
 params.mem = 2  // in GB
 params.publish_dir = ""
@@ -41,7 +42,7 @@ params.tempdir = ""
 
 
 process bamMergeSortMarkdup {
-  container "quay.io/icgc-argo/bam-merge-sort-markdup:bam-merge-sort-markdup.${params.container_version ?: version}"
+  container "${params.container_registry ?: "quay.io"}/icgc-argo/demo-bam-merge-sort-markdup:${params.container_version ?: version}"
   publishDir "${params.publish_dir}/${task.process.replaceAll(':', '_')}",
     mode: "copy",
     enabled: "${params.publish_dir ? true : ''}"

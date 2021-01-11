@@ -1,6 +1,6 @@
 {
     "name": "demo-bam-merge-sort-markdup",
-    "version": "0.1.11.0",
+    "version": "1.11.1",
     "description": "Merge multiple aligned BAMs, sort by coordinate and perform markduplicate",
     "main": "bam-merge-sort-markdup.nf",
     "scripts": {
