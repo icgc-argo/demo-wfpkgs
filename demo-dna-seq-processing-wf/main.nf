@@ -24,7 +24,7 @@
 
 nextflow.enable.dsl = 2
 name = 'dna-seq-processing'
-version = '1.5.5-1.1.0'
+version = '1.6.0-1.2.0'
 
 
 params.ref_genome_fa = ""
@@ -64,10 +64,12 @@ DnaAln_params = [
 ]
 
 
-include { getSecondaryFiles } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-utils@1.0.0/main.nf'
-include { DnaAln } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-dna-seq-alignment-wf@1.5.5/main.nf' params(DnaAln_params)
-include { alignedSeqQC } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-aligned-seq-qc@0.2.2.1/aligned-seq-qc.nf' params(params)
-include { cleanupWorkdir as cleanup } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-utils@1.0.0/main.nf'
+include {
+    getSecondaryFiles;
+    cleanupWorkdir as cleanup
+} from './wfpr_modules/github.com/icgc-argo/wfpr/demo-utils@1.0.3/main.nf'
+include { DnaAln } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-dna-seq-alignment-wf@1.6.0/main.nf' params(DnaAln_params)
+include { alignedSeqQC } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-aligned-seq-qc@1.0.0/aligned-seq-qc.nf' params(params)
 
 
 workflow DnaSeqProcess {
