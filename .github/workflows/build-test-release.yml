@@ -94,7 +94,7 @@ jobs:
         sudo mv nextflow /usr/local/bin/
 
     - name: "Login to GitHub Container Registry"  # normally shouldn't need to loging, but new image when just created is private
-      if: ${{ steps.get_pkg_info.outputs.branch != 'main' && steps.get_pkg_info.outputs.docker_file != ''}}
+      if: ${{ needs.build.outputs.branch != 'main' }}
       uses: docker/login-action@v1
       with:
         registry: ghcr.io
@@ -102,7 +102,7 @@ jobs:
         password: ${{ secrets.CR_PAT }}
 
     - name: "Login to Quay.io Registry"  # normally shouldn't need to loging, but new image when just created is private
-      if: ${{ steps.get_pkg_info.outputs.branch != 'main' && steps.get_pkg_info.outputs.docker_file != ''}}
+      if: ${{ needs.build.outputs.branch != 'main' }}
       uses: docker/login-action@v1
       with:
         registry: quay.io
