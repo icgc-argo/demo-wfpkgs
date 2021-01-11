@@ -1,10 +1,11 @@
-name: CI tests
+name: CI
 
 on:
   push:
     branches:
     - main
-    - '*\@[0-9]+.[0-9]+.[0-9]+*'
+    - '*\@[0-9]+.[0-9]+.[0-9]+*'  # package development branch
+
 
 jobs:
   build:
@@ -24,6 +25,7 @@ jobs:
         echo "::set-output name=pkg_ver::$(echo ${GITHUB_REF#refs/heads/} |cut -d '@' -f 2)"
 
     - name: Login to GitHub Container Registry
+      if: ${{ steps.get_pkg_info.outputs.branch != 'main' }}
       uses: docker/login-action@v1
       with:
         registry: ghcr.io
@@ -31,6 +33,7 @@ jobs:
         password: ${{ secrets.CR_PAT }}
 
     - name: Login to Quay.io Registry
+      if: ${{ steps.get_pkg_info.outputs.branch != 'main' }}
       uses: docker/login-action@v1
       with:
         registry: quay.io
@@ -97,3 +100,34 @@ jobs:
       run: |
         cd ./${{needs.build.outputs.pkg_name}}/tests
         ./run_tests.sh
+
+  release:   # release when package dev branch is merged to main, if test pass then programmatically create release
+    needs: [build,test]
+    if: ${{ startsWith(github.event.head_commit.message, 'Merge pull request') && needs.build.outputs.branch == 'main' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Extract package name and version from commit message
+      id: get_pkg_info
+      shell: bash
+      run: |
+        MERGED_BR=$(echo '${{ github.event.head_commit.message }}' | awk -F'/' '{print $2}')
+        PKG_NAME=$(echo $MERGED_BR | awk -F'@' '{print $1}')
+        PKG_VER=$(echo $MERGED_BR | awk -F'@' '{print $2}')
+        echo "::set-output name=pkg_name::$(echo ${PKG_NAME})"
+        echo "::set-output name=pkg_ver::$(echo ${PKG_VER})"
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.get_pkg_info.outputs.pkg_name }}.${{ steps.get_pkg_info.outputs.pkg_ver }}
+        release_name: ${{ steps.get_pkg_info.outputs.pkg_name }}.${{ steps.get_pkg_info.outputs.pkg_ver }}
+        body: |
+          Release ${{ steps.get_pkg_info.outputs.pkg_name }}.${{ steps.get_pkg_info.outputs.pkg_ver }} (${{ github.sha }})
+        draft: false
+        prerelease: false
