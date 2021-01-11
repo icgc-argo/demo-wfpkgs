@@ -1,6 +1,6 @@
 {
     "name": "demo-bwa-mem-aligner",
-    "version": "0.1.12.0",
+    "version": "1.12.1",
     "description": "BWA MEM Aligner",
     "main": "bwa-mem-aligner.nf",
     "scripts": {
