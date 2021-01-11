@@ -117,8 +117,8 @@ jobs:
       id: get_pkg_info
       shell: bash
       run: |
-        MERGED_BR=$(echo '${{ github.event.head_commit.message }}' | \
-          grep '^Merge pull request' | awk -F'/' '{print $2}')
+        MERGED_BR=$(echo -e '${{ github.event.head_commit.message }}' | \
+          grep '^Merge pull request' | tr ' ' '\n' |grep '@' | awk -F'/' '{print $2}')
         PKG_NAME=$(echo $MERGED_BR | awk -F'@' '{print $1}')
         PKG_VER=$(echo $MERGED_BR | awk -F'@' '{print $2}')
         echo "::set-output name=pkg_name::$(echo ${PKG_NAME})"
