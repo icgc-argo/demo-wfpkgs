@@ -26,7 +26,7 @@
 
 nextflow.enable.dsl = 2
 name = 'dna-seq-alignment'
-version = '1.5.5'
+version = '1.6.0'
 
 
 params.ref_genome_fa = ""
@@ -61,10 +61,14 @@ bamMergeSortMarkdup_params = [
 
 
 // Include all modules and pass params
-include { getBwaSecondaryFiles; getSecondaryFiles } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-utils@1.0.0/main.nf'
-include { bwaMemAligner as bwaMem } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-bwa-mem-aligner@0.1.12.0/bwa-mem-aligner.nf' params(bwaMemAligner_params)
-include { bamMergeSortMarkdup as merSorMkdup } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-bam-merge-sort-markdup@0.1.11.0/bam-merge-sort-markdup.nf' params(bamMergeSortMarkdup_params)
-include { cleanupWorkdir as cleanup } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-utils@1.0.0/main.nf'
+include {
+    getBwaSecondaryFiles;
+    getSecondaryFiles;
+    cleanupWorkdir as cleanup
+} from './wfpr_modules/github.com/icgc-argo/wfpr/demo-utils@1.0.3/main.nf'
+
+include { bwaMemAligner as bwaMem } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-bwa-mem-aligner@1.12.1/bwa-mem-aligner.nf' params(bwaMemAligner_params)
+include { bamMergeSortMarkdup as merSorMkdup } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-bam-merge-sort-markdup@1.11.1/bam-merge-sort-markdup.nf' params(bamMergeSortMarkdup_params)
 
 
 workflow DnaAln {

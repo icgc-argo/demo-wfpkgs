@@ -1,6 +1,6 @@
 {
     "name": "demo-dna-seq-alignment",
-    "version": "0.1.12.0",
+    "version": "1.6.0",
     "description": "DNA Seq Alignment Workflow",
     "main": "main.nf",
     "scripts": {
@@ -35,13 +35,13 @@
     },
     "homepage": "https://github.com/icgc-argo/demo-wfpkgs#readme",
     "dependencies": {
-        "github.com/icgc-argo/wfpr/demo-bwa-mem-aligner": "0.1.12.0",
-        "github.com/icgc-argo/wfpr/demo-bam-merge-sort-markdup": "0.1.11.0",
-        "github.com/icgc-argo/wfpr/demo-utils": "1.0.0"
+        "github.com/icgc-argo/wfpr/demo-bwa-mem-aligner": "1.12.1",
+        "github.com/icgc-argo/wfpr/demo-bam-merge-sort-markdup": "1.11.1",
+        "github.com/icgc-argo/wfpr/demo-utils": "1.0.3"
     },
     "localDependencies": {
-        "github.com/icgc-argo/wfpr/demo-bwa-mem-aligner@0.1.12.0": "../demo-bwa-mem-aligner",
-        "github.com/icgc-argo/wfpr/demo-bam-merge-sort-markdup@0.1.11.0": "../demo-bam-merge-sort-markdup",
-        "github.com/icgc-argo/wfpr/demo-utils@1.0.0": "../demo-utils"
+        "github.com/icgc-argo/wfpr/demo-bwa-mem-aligner@1.12.1": "../demo-bwa-mem-aligner",
+        "github.com/icgc-argo/wfpr/demo-bam-merge-sort-markdup@1.11.1": "../demo-bam-merge-sort-markdup",
+        "github.com/icgc-argo/wfpr/demo-utils@1.0.3": "../demo-utils"
     }
 }
