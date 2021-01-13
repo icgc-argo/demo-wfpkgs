@@ -21,8 +21,7 @@
     "_release": {
         "tag": "demo-bwa-mem-aligner.1.20.0",
         "hash": {
-            "type": "sha1",
-            "checksume": "a3d120028b5535268507becc646e22c106eb55df"
+            "checksume": "sha1:a3d120028b5535268507becc646e22c106eb55df"
         },
         "created": "2021-01-12T19:35:32Z",
         "assets": [
