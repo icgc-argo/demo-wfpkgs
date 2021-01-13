@@ -28,10 +28,10 @@
 /* changes can be made if needed, do NOT modify this block manually   */
 nextflow.enable.dsl = 2
 name = 'demo-bwa-mem-aligner'
-version = '1.20.0'
+version = '1.20.1'
 container = [
-    'ghcr.io': 'ghcr.io/icgc-argo/demo-bwa-mem-aligner',
-    'quay.io': 'quay.io/icgc-argo/demo-bwa-mem-aligner'
+    'ghcr.io': 'ghcr.io/icgc-argo/demo-wfpkgs.demo-bwa-mem-aligner',
+    'quay.io': 'quay.io/icgc-argo/demo-wfpkgs.demo-bwa-mem-aligner'
 ]
 default_container_registry = 'quay.io'
 /**********************************************************************/
