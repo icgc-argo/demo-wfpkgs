@@ -43,7 +43,7 @@
         "github.com/icgc-argo/wfpr/demo-utils@1.0.0": "../demo-utils"
     },
     "main": "bwa-mem-aligner.nf",
-    "note": "This file is not meant to be checked into git repo. It will be prepared during releasing and added as an asset of a package release.",
+    "note": "This file is not meant to be manually updated.",
     "deprecated": false,
     "devDependencies": {
         "github.com/icgc-argo/wfpr/demo-utils": "1.0.0"
@@ -59,7 +59,7 @@
     "_release": {
         "assets": [
             {
-                "filename": "demo-bwa-mem-aligner.1.20.0.tar.gz",
+                "filename": "demo-bwa-mem-aligner.1.20.1.tar.gz",
                 "checksum": "dd136327081565740b0a2d7b2227073758a7b567d8f3c5f2911e10ca75557035",
                 "checksum_type": "sha256",
                 "size": 23252,
@@ -74,7 +74,7 @@
                 "download_url": "https://github.com/octocat/Hello-World/releases/download/demo-bwa-mem-aligner.1.20.0/package_release.json"
             }
         ],
-        "tag": "demo-bwa-mem-aligner.1.20.0",
+        "tag": "demo-bwa-mem-aligner.1.20.1",
         "hash": {
             "checksume": "a3d120028b5535268507becc646e22c106eb55df",
             "checksum_type": "sha1"
