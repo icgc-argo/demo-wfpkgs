@@ -102,7 +102,7 @@ jobs:
       shell: bash
       run: |
         # temporary solution
-        ./script/update_image_digest.py \
+        ./scripts/update_image_digest.py \
           -p ${{ steps.get_pkg_info.outputs.pkg_name }}/package_release.json \
           -t sha256 \
           -c ${{ steps.push_to_ghcr.outputs.image_sha256 }} \
