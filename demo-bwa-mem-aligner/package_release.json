@@ -29,9 +29,9 @@
     },
     "container": {
         "_image_digest": {
-            "checksum": "ac87e77971d824bc173fca17247df32f8fca16ab35ff63d72c9d9309a96a9d05",
+            "checksum": "eddc3b1f77a00eb6ed1f15068844559fdc9d3b74a7e66a15fa031c11a470ae86",
             "checksum_type": "sha256",
-            "created": "2021-01-13T18:19:17Z"
+            "created": "2021-01-13T18:23:56Z"
         },
         "registries": {
             "ghcr.io": {
