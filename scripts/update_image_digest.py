@@ -34,4 +34,4 @@ if __name__ == '__main__':
         args.utc_time,
     )
 
-    print(json.dumps(updated_meta, indent=4))
+    print(json.dumps(updated_meta, indent=4, sort_keys=True))
