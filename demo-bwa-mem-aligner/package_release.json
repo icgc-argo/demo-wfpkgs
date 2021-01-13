@@ -1,6 +1,83 @@
 {
+    "main": "bwa-mem-aligner.nf",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/icgc-argo/demo-wfpkgs.git"
+    },
+    "homepage": "https://github.com/icgc-argo/demo-wfpkgs#readme",
+    "description": "BWA MEM Aligner",
+    "deprecated": false,
+    "scripts": {
+        "test": "pushd tests && ./run_tests.sh; popd"
+    },
     "bugs": {
         "url": "https://github.com/icgc-argo/demo-wfpkgs/issues"
+    },
+    "name": "demo-bwa-mem-aligner",
+    "devDependencies": {
+        "github.com/icgc-argo/wfpr/demo-utils": "1.0.0"
+    },
+    "container": {
+        "registries": {
+            "ghcr.io": {
+                "type": "docker",
+                "org": "icgc-argo",
+                "_image": "demo-wfpkgs.demo-bwa-mem-aligner",
+                "default": false
+            },
+            "quay.io": {
+                "type": "docker",
+                "org": "icgc-argo",
+                "_image": "demo-wfpkgs.demo-bwa-mem-aligner",
+                "default": true
+            }
+        },
+        "_image_digest": {
+            "checksum": "be3105a0056ba4d331ef4c7a97bbec67ded58862ab0b492459984f8a54e9a327",
+            "created": "2021-01-13T18:10:10Z",
+            "checksum_type": "sha256"
+        }
+    },
+    "_release": {
+        "assets": [
+            {
+                "checksum": "dd136327081565740b0a2d7b2227073758a7b567d8f3c5f2911e10ca75557035",
+                "download_url": "https://github.com/octocat/Hello-World/releases/download/demo-bwa-mem-aligner.1.20.0/demo-bwa-mem-aligner.1.20.0.tar.gz",
+                "filename": "demo-bwa-mem-aligner.1.20.1.tar.gz",
+                "checksum_type": "sha256",
+                "size": 23252
+            },
+            {
+                "note": "this file",
+                "checksum_type": null,
+                "download_url": "https://github.com/octocat/Hello-World/releases/download/demo-bwa-mem-aligner.1.20.0/package_release.json",
+                "checksum": null,
+                "size": null,
+                "filename": "package_release.json"
+            }
+        ],
+        "hash": {
+            "checksume": "a3d120028b5535268507becc646e22c106eb55df",
+            "checksum_type": "sha1"
+        },
+        "tag": "demo-bwa-mem-aligner.1.20.1",
+        "created": "2021-01-12T19:35:32Z"
+    },
+    "version": "1.20.1",
+    "dependencies": {},
+    "license": "AGPL-3.0",
+    "contributors": [
+        {
+            "name": "Junjun Zhang",
+            "email": "junjun.zhang@oicr.on.ca"
+        },
+        {
+            "name": "Linda Xiang",
+            "email": "linda.xiang@oicr.on.ca"
+        }
+    ],
+    "localDependencies": {
+        "github.com/icgc-argo/wfpr/demo-utils@1.0.0": "../demo-utils"
     },
     "keywords": [
         "bioinformatics",
@@ -8,82 +85,5 @@
         "dna-seq",
         "bwa"
     ],
-    "container": {
-        "registries": {
-            "quay.io": {
-                "default": true,
-                "type": "docker",
-                "org": "icgc-argo",
-                "_image": "demo-wfpkgs.demo-bwa-mem-aligner"
-            },
-            "ghcr.io": {
-                "default": false,
-                "type": "docker",
-                "org": "icgc-argo",
-                "_image": "demo-wfpkgs.demo-bwa-mem-aligner"
-            }
-        },
-        "_image_digest": {
-            "checksum_type": "sha256",
-            "created": "2021-01-13T17:54:40Z",
-            "checksum": "d4ae64f777b4f86a30c8065f3b0a6c83af8177e023ebabc3b1fcd957f71ce863"
-        }
-    },
-    "contributors": [
-        {
-            "email": "junjun.zhang@oicr.on.ca",
-            "name": "Junjun Zhang"
-        },
-        {
-            "email": "linda.xiang@oicr.on.ca",
-            "name": "Linda Xiang"
-        }
-    ],
-    "localDependencies": {
-        "github.com/icgc-argo/wfpr/demo-utils@1.0.0": "../demo-utils"
-    },
-    "main": "bwa-mem-aligner.nf",
-    "note": "This file is not meant to be manually updated.",
-    "deprecated": false,
-    "devDependencies": {
-        "github.com/icgc-argo/wfpr/demo-utils": "1.0.0"
-    },
-    "license": "AGPL-3.0",
-    "homepage": "https://github.com/icgc-argo/demo-wfpkgs#readme",
-    "name": "demo-bwa-mem-aligner",
-    "version": "1.20.1",
-    "description": "BWA MEM Aligner",
-    "scripts": {
-        "test": "pushd tests && ./run_tests.sh; popd"
-    },
-    "_release": {
-        "assets": [
-            {
-                "filename": "demo-bwa-mem-aligner.1.20.1.tar.gz",
-                "checksum": "dd136327081565740b0a2d7b2227073758a7b567d8f3c5f2911e10ca75557035",
-                "checksum_type": "sha256",
-                "size": 23252,
-                "download_url": "https://github.com/octocat/Hello-World/releases/download/demo-bwa-mem-aligner.1.20.0/demo-bwa-mem-aligner.1.20.0.tar.gz"
-            },
-            {
-                "checksum_type": null,
-                "size": null,
-                "filename": "package_release.json",
-                "note": "this file",
-                "checksum": null,
-                "download_url": "https://github.com/octocat/Hello-World/releases/download/demo-bwa-mem-aligner.1.20.0/package_release.json"
-            }
-        ],
-        "tag": "demo-bwa-mem-aligner.1.20.1",
-        "hash": {
-            "checksume": "a3d120028b5535268507becc646e22c106eb55df",
-            "checksum_type": "sha1"
-        },
-        "created": "2021-01-12T19:35:32Z"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/icgc-argo/demo-wfpkgs.git"
-    },
-    "dependencies": {}
+    "note": "This file is not meant to be manually updated."
 }
