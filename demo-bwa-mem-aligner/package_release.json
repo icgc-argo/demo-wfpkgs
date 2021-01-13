@@ -1,7 +1,7 @@
 {
     "note": "This file is not meant to be checked into git repo. It will be prepared during releasing and added as an asset of a package release.",
     "name": "demo-bwa-mem-aligner",
-    "version": "1.20.0",
+    "version": "1.20.1",
     "description": "BWA MEM Aligner",
     "main": "bwa-mem-aligner.nf",
     "scripts": {
@@ -21,20 +21,23 @@
     "_release": {
         "tag": "demo-bwa-mem-aligner.1.20.0",
         "hash": {
-            "checksume": "sha1:a3d120028b5535268507becc646e22c106eb55df"
+            "checksum_type": "sha1",
+            "checksume": "a3d120028b5535268507becc646e22c106eb55df"
         },
         "created": "2021-01-12T19:35:32Z",
         "assets": [
             {
                 "filename": "demo-bwa-mem-aligner.1.20.0.tar.gz",
                 "download_url": "https://github.com/octocat/Hello-World/releases/download/demo-bwa-mem-aligner.1.20.0/demo-bwa-mem-aligner.1.20.0.tar.gz",
-                "checksum": "sha256:dd136327081565740b0a2d7b2227073758a7b567d8f3c5f2911e10ca75557035",
+                "checksum_type": "sha256",
+                "checksum": "dd136327081565740b0a2d7b2227073758a7b567d8f3c5f2911e10ca75557035",
                 "size": 23252
             },
             {
                 "filename": "package_release.json",
                 "download_url": "https://github.com/octocat/Hello-World/releases/download/demo-bwa-mem-aligner.1.20.0/package_release.json",
                 "note": "this file",
+                "checksum_type": null,
                 "checksum": null,
                 "size": null
             }
@@ -43,20 +46,21 @@
     "container": {
         "_image_digest": {
             "created": "2021-01-12T19:32:00Z",
-            "checksum": "sha256:bbd9fd380826c6cef78871f62b3fb8cf4a466fa99a32e61ea9ba839dc1833e5d"
+            "checksum_type": "sha256",
+            "checksum": "bbd9fd380826c6cef78871f62b3fb8cf4a466fa99a32e61ea9ba839dc1833e5d"
         },
         "registries": {
             "quay.io": {
                 "default": true,
-                "type": "docker",
-                "org": "icgc-argo",
-                "repo": "demo-bwa-mem-aligner"
+                "_type": "docker",
+                "_org": "icgc-argo",
+                "_image": "demo-wfpkgs.demo-bwa-mem-aligner"
             },
             "ghcr.io": {
                 "default": false,
-                "type": "docker",
-                "org": "icgc-argo",
-                "repo": "demo-bwa-mem-aligner"
+                "_type": "docker",
+                "_org": "icgc-argo",
+                "_repo": "demo-wfpkgs.demo-bwa-mem-aligner"
             }
         }
     },

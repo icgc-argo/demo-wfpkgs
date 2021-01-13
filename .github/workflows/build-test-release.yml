@@ -57,8 +57,8 @@ jobs:
         platforms: linux/amd64
         load: true
         tags: |
-          ghcr.io/icgc-argo/${{steps.get_pkg_info.outputs.pkg_name}}:${{steps.get_pkg_info.outputs.pkg_ver}}
-          quay.io/icgc-argo/${{steps.get_pkg_info.outputs.pkg_name}}:${{steps.get_pkg_info.outputs.pkg_ver}}
+          ghcr.io/${{ github.repository }}.${{ steps.get_pkg_info.outputs.pkg_name }}:${{ steps.get_pkg_info.outputs.pkg_ver }}
+          quay.io/${{ github.repository }}.${{ steps.get_pkg_info.outputs.pkg_name }}:${{ steps.get_pkg_info.outputs.pkg_ver }}
 
     - name: Push image to ghcr.io
       if: ${{ steps.get_pkg_info.outputs.branch != 'main' && steps.get_pkg_info.outputs.docker_file != ''}}
