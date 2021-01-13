@@ -31,7 +31,6 @@ params.ref_genome_gz = "reference/tiny-grch38-chr11-530001-537000.fa.gz"
 params.sequencing_experiment_metadata = "NO_FILE"
 params.tempdir = "NO_DIR"
 params.publish_dir = ""
-params.container_registry = ""
 
 include { bwaMemAligner } from '../bwa-mem-aligner' params(params)
 include { getBwaSecondaryFiles } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-utils@1.0.0/main.nf'

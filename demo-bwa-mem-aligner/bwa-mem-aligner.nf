@@ -24,8 +24,18 @@
  */
 
 
-nextflow.enable.dsl=2
-version = '1.12.2'
+/* this block is auto-generated based on info from package.json where */
+/* changes can be made if needed, do NOT modify this block manually   */
+nextflow.enable.dsl = 2
+name = 'demo-bwa-mem-aligner'
+version = '1.20.0'
+container = [
+    'ghcr.io': 'ghcr.io/icgc-argo/demo-bwa-mem-aligner',
+    'quay.io': 'quay.io/icgc-argo/demo-bwa-mem-aligner'
+]
+default_container_registry = 'quay.io'
+/**********************************************************************/
+
 
 params.input_bam = "tests/input/?????_?.lane.bam"
 params.aligned_lane_prefix = 'grch38-aligned'
@@ -33,15 +43,15 @@ params.ref_genome_gz = "tests/reference/tiny-grch38-chr11-530001-537000.fa.gz"
 params.sequencing_experiment_analysis = "NO_FILE"
 params.tempdir = "NO_DIR"
 
+params.container_registry = default_container_registry
 params.container_version = ""
-params.container_registry = ""
 params.cpus = 1
 params.mem = 1  // GB
 params.publish_dir = ""
 
 
 process bwaMemAligner {
-  container "${params.container_registry ?: "quay.io"}/icgc-argo/demo-bwa-mem-aligner:${params.container_version ?: version}"
+  container "${container[params.container_registry]}:${params.container_version ?: version}"
   publishDir "${params.publish_dir}/${task.process.replaceAll(':', '_')}", mode: "copy", enabled: "${params.publish_dir ? true : ''}"
 
   cpus params.cpus
