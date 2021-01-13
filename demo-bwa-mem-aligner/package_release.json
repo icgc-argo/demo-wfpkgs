@@ -60,7 +60,7 @@
                 "default": false,
                 "type": "docker",
                 "org": "icgc-argo",
-                "_repo": "demo-wfpkgs.demo-bwa-mem-aligner"
+                "_image": "demo-wfpkgs.demo-bwa-mem-aligner"
             }
         }
     },
