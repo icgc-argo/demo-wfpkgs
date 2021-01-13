@@ -52,14 +52,14 @@
         "registries": {
             "quay.io": {
                 "default": true,
-                "_type": "docker",
-                "_org": "icgc-argo",
+                "type": "docker",
+                "org": "icgc-argo",
                 "_image": "demo-wfpkgs.demo-bwa-mem-aligner"
             },
             "ghcr.io": {
                 "default": false,
-                "_type": "docker",
-                "_org": "icgc-argo",
+                "type": "docker",
+                "org": "icgc-argo",
                 "_repo": "demo-wfpkgs.demo-bwa-mem-aligner"
             }
         }

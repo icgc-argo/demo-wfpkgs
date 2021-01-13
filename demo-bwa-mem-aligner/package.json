@@ -20,9 +20,13 @@
     "container": {
         "registries": {
             "quay.io": {
+                "type": "docker",
+                "org": "icgc-argo",
                 "default": true
             },
             "ghcr.io": {
+                "type": "docker",
+                "org": "icgc-argo",
                 "default": false
             }
         }
