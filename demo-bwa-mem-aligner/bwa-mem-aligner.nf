@@ -23,9 +23,9 @@
  *   Linda Xiang <linda.xiang@oicr.on.ca>
  */
 
-
-/* this block is auto-generated based on info from package.json where */
-/* changes can be made if needed, do NOT modify this block manually   */
+/********************************************************************/
+/* this block is auto-generated based on info from pkg.json where   */
+/* changes can be made if needed, do NOT modify this block manually */
 nextflow.enable.dsl = 2
 name = 'demo-bwa-mem-aligner'
 version = '1.20.2'
@@ -34,7 +34,7 @@ container = [
     'quay.io': 'quay.io/icgc-argo/demo-wfpkgs.demo-bwa-mem-aligner'
 ]
 default_container_registry = 'quay.io'
-/**********************************************************************/
+/********************************************************************/
 
 
 params.input_bam = "tests/input/?????_?.lane.bam"

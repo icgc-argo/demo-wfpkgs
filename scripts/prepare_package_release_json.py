@@ -19,7 +19,7 @@ def update_image_digest(package_meta, release_meta_str):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Update package.json to generate package_release.json ')
+    parser = argparse.ArgumentParser(description='Update pkg.json to generate pkg-release.json ')
     parser.add_argument('-p', dest='package_meta', type=str, required=True)
     parser.add_argument('-d', dest='release_meta_str', type=str, required=True)
     args = parser.parse_args()

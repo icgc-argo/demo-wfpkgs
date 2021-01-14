@@ -65,10 +65,10 @@ include {
     getBwaSecondaryFiles;
     getSecondaryFiles;
     cleanupWorkdir as cleanup
-} from './wfpr_modules/github.com/icgc-argo/wfpr/demo-utils@1.0.3/main.nf'
+} from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-utils@1.0.3/main.nf'
 
-include { bwaMemAligner as bwaMem } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-bwa-mem-aligner@1.12.1/bwa-mem-aligner.nf' params(bwaMemAligner_params)
-include { bamMergeSortMarkdup as merSorMkdup } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-bam-merge-sort-markdup@1.11.1/bam-merge-sort-markdup.nf' params(bamMergeSortMarkdup_params)
+include { bwaMemAligner as bwaMem } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-bwa-mem-aligner@1.12.1/bwa-mem-aligner.nf' params(bwaMemAligner_params)
+include { bamMergeSortMarkdup as merSorMkdup } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-bam-merge-sort-markdup@1.11.1/bam-merge-sort-markdup.nf' params(bamMergeSortMarkdup_params)
 
 
 workflow DnaAln {
