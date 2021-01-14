@@ -67,9 +67,9 @@ DnaAln_params = [
 include {
     getSecondaryFiles;
     cleanupWorkdir as cleanup
-} from './wfpr_modules/github.com/icgc-argo/wfpr/demo-utils@1.0.3/main.nf'
-include { DnaAln } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-dna-seq-alignment-wf@1.6.0/main.nf' params(DnaAln_params)
-include { alignedSeqQC } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-aligned-seq-qc@1.0.0/aligned-seq-qc.nf' params(params)
+} from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-utils@1.0.3/main.nf'
+include { DnaAln } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-dna-seq-alignment-wf@1.6.0/main.nf' params(DnaAln_params)
+include { alignedSeqQC } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-aligned-seq-qc@1.0.0/aligned-seq-qc.nf' params(params)
 
 
 workflow DnaSeqProcess {

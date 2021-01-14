@@ -33,7 +33,7 @@ params.tempdir = "NO_DIR"
 params.publish_dir = ""
 
 include { bwaMemAligner } from '../bwa-mem-aligner' params(params)
-include { getBwaSecondaryFiles } from './wfpr_modules/github.com/icgc-argo/wfpr/demo-utils@1.0.0/main.nf'
+include { getBwaSecondaryFiles } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-utils@1.0.0/main.nf'
 
 
 Channel
