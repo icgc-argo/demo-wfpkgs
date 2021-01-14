@@ -159,10 +159,10 @@ jobs:
       id: to_release
       run: |
         if [[ \
-          ${{ github.event.head_commit.message }} = "Merge"[[:space:]]"pull"[[:space:]]"request"* && \
-          ${{ github.event.head_commit.message }} = *"@"* && \
-          ${{ github.event.head_commit.message }} = *"[release]"* && \
-          ${{ needs.build.outputs.branch }} = 'main'
+          "${{ github.event.head_commit.message }}" = "Merge"[[:space:]]"pull"[[:space:]]"request"* && \
+          "${{ github.event.head_commit.message }}" = *"@"* && \
+          "${{ github.event.head_commit.message }}" = *"[release]"* && \
+          "${{ needs.build.outputs.branch }}" = 'main'
         ]]; then
           echo "::set-output name=release::$(echo Y)"
         else
