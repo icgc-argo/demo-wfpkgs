@@ -22,19 +22,27 @@
  *   Junjun Zhang <junjun.zhang@oicr.on.ca>
  */
 
-
+/********************************************************************/
+/* this block is auto-generated based on info from pkg.json where   */
+/* changes can be made if needed, do NOT modify this block manually */
 nextflow.enable.dsl = 2
-version = '1.0.3'
+version = '1.1.0'
+container = [
+    'ghcr.io': 'ghcr.io/icgc-argo/demo-wfpkgs.demo-utils',
+    'quay.io': 'quay.io/icgc-argo/demo-wfpkgs.demo-utils'
+]
+default_container_registry = 'quay.io'
+/********************************************************************/
 
 params.cpus = 1
 params.mem = 1
 params.files_to_delete = 'NO_FILE'
 params.container_version = ''
-params.container_registry = ''
+params.container_registry = default_container_registry
 
 
 process cleanupWorkdir {
-    container "${params.container_registry ?: "ghcr.io"}/icgc-argo/demo-utils:${params.container_version ?: version}"
+    container "${container[params.container_registry]}:${params.container_version ?: version}"
     cpus params.cpus
     memory "${params.mem} GB"
 
