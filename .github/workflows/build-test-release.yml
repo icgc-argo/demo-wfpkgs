@@ -245,9 +245,9 @@ jobs:
                 {
                   \"filename\": \"$TAG.tar.gz\",
                   \"download_url\": \"https://github.com/${{ github.repository }}/releases/download/$TAG/$TAG.tar.gz\",
-                  \"checksum\": \"${{ steps.get_pkg_info.outputs.pkg_tar_sha }}\",
+                  \"checksum\": \"${{ steps.prep_assets.outputs.pkg_tar_sha }}\",
                   \"checksum_type\": \"sha256\",
-                  \"size\": ${{ steps.get_pkg_info.outputs.pkg_tar_size }}
+                  \"size\": ${{ steps.prep_assets.outputs.pkg_tar_size }}
                 },
                 {
                   \"_NOTE_\": \"this file\",
