@@ -164,18 +164,18 @@ jobs:
           ${{ github.event.head_commit.message }} = *"[release]"* && \
           ${{ needs.build.outputs.branch }} = 'main'
         ]]; then
-          echo "::set-output name=release::$(echo true)"
+          echo "::set-output name=release::$(echo Y)"
         else
-          echo "::set-output name=release::$(echo false)"
+          echo "::set-output name=release::$(echo N)"
         fi
 
     - name: Extract package name and version from commit message
-      if: ${{ steps.to_release.outputs.release }}
+      if: ${{ steps.to_release.outputs.release == 'Y' }}
       id: get_pkg_info
       shell: bash
       run: |
         MERGED_BR=$(echo -e '${{ github.event.head_commit.message }}' | \
-          grep '^Merge pull request' | tr ' ' '\n' |grep '@' | awk -F'/' '{print $2}')
+          { grep '^Merge pull request'||:; } | tr ' ' '\n' |{ grep '@'||:; } | awk -F'/' '{print $2}')
         PKG_NAME=$(echo $MERGED_BR | awk -F'@' '{print $1}')
         PKG_VER=$(echo $MERGED_BR | awk -F'@' '{print $2}')
         echo "::set-output name=pkg_name::$(echo ${PKG_NAME})"
@@ -190,7 +190,7 @@ jobs:
 
     - name: Prepare package release tarball
       id: prep_assets
-      if: ${{ steps.to_release.outputs.release }}
+      if: ${{ steps.to_release.outputs.release == 'Y' }}
       shell: bash
       run: |
         ./scripts/cleanup_temp_files.sh  # just in case
@@ -205,7 +205,7 @@ jobs:
 
     - name: Create release
       id: create_release
-      if: ${{ steps.to_release.outputs.release }}
+      if: ${{ steps.to_release.outputs.release == 'Y' }}
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -219,7 +219,7 @@ jobs:
         prerelease: false
 
     - name: Prepare in package_release.json
-      if: ${{ steps.to_release.outputs.release }}
+      if: ${{ steps.to_release.outputs.release == 'Y' }}
       shell: bash
       run: |
         if [[ ${{ steps.get_pkg_info.outputs.docker_file }} != '' ]]; then
@@ -267,6 +267,7 @@ jobs:
           " > package_release.json
 
     - name: Upload package release tarball
+      if: ${{ steps.to_release.outputs.release == 'Y' }}
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -277,6 +278,7 @@ jobs:
         asset_content_type: application/zip
 
     - name: Upload package release json
+      if: ${{ steps.to_release.outputs.release == 'Y' }}
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
