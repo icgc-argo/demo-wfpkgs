@@ -22,8 +22,14 @@
  *   Junjun Zhang <junjun.zhang@oicr.on.ca>
  */
 
+/********************************************************************/
+/* this block is auto-generated based on info from pkg.json where   */
+/* changes can be made if needed, do NOT modify this block manually */
 nextflow.enable.dsl = 2
+name = 'demo-utils'
 version = '1.1.0'
+/********************************************************************/
+
 
 // load local process (module)
 include { cleanupWorkdir } from './local_modules/cleanup-workdir.nf'
