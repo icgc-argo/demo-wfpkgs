@@ -1,8 +1,8 @@
 {
-    "name": "demo-bwa-mem-aligner",
-    "version": "1.20.2",
-    "description": "BWA MEM Aligner",
-    "main": "bwa-mem-aligner.nf",
+    "name": "demo-aligned-seq-qc",
+    "version": "1.0.0",
+    "description": "Collect QC metrics from aligned sequencing reads",
+    "main": "aligned-seq-qc.nf",
     "scripts": {
         "test": "pushd tests && ./run_tests.sh; popd"
     },
@@ -10,27 +10,33 @@
     "keywords": [
         "bioinformatics",
         "alignment",
-        "dna-seq",
-        "bwa"
+        "qc",
+        "metrics"
     ],
     "repository": {
         "type": "git",
         "url": "https://github.com/icgc-argo/demo-wfpkgs.git"
     },
     "container": {
-        "registries": {
-            "quay.io": {
+        "registries": [
+            {
+                "registry": "quay.io",
                 "type": "docker",
                 "org": "icgc-argo",
                 "default": true
             },
-            "ghcr.io": {
+            {
+                "registry": "ghcr.io",
                 "type": "docker",
                 "org": "icgc-argo",
                 "default": false
             }
-        }
+        ]
     },
+    "dependencies": [],
+    "devDependencies": [
+        "github.com/icgc-argo/demo-wfpkgs/demo-utils@1.0.0"
+    ],
     "contributors": [
         {
             "name": "Junjun Zhang",
@@ -42,15 +48,6 @@
         }
     ],
     "license": "AGPL-3.0",
-    "bugs": {
-        "url": "https://github.com/icgc-argo/demo-wfpkgs/issues"
-    },
-    "homepage": "https://github.com/icgc-argo/demo-wfpkgs#readme",
-    "dependencies": {},
-    "devDependencies": {
-        "github.com/icgc-argo/wfpr/demo-utils": "1.0.0"
-    },
-    "localDependencies": {
-        "github.com/icgc-argo/wfpr/demo-utils@1.0.0": "../demo-utils"
-    }
+    "bugReport": "https://github.com/icgc-argo/demo-wfpkgs/issues",
+    "homepage": "https://github.com/icgc-argo/demo-wfpkgs#readme"
 }

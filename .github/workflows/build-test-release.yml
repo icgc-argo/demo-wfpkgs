@@ -218,7 +218,7 @@ jobs:
         draft: false
         prerelease: false
 
-    - name: Prepare in package_release.json
+    - name: Prepare in pkg-release.json
       if: ${{ steps.to_release.outputs.release == 'Y' }}
       shell: bash
       run: |
@@ -231,7 +231,7 @@ jobs:
 
         # temporary solution
         TAG="${{ steps.get_pkg_info.outputs.pkg_name }}.${{ steps.get_pkg_info.outputs.pkg_ver }}"
-        ./scripts/prepare_package_release_json.py -p ${{ steps.get_pkg_info.outputs.pkg_name }}/package.json -d \
+        ./scripts/prepare_package_release_json.py -p ${{ steps.get_pkg_info.outputs.pkg_name }}/pkg.json -d \
           "
           {
             \"_release\": {
@@ -251,8 +251,8 @@ jobs:
                 },
                 {
                   \"_NOTE_\": \"this file\",
-                  \"filename\": \"package_release.json\",
-                  \"download_url\": \"https://github.com/${{ github.repository }}/releases/download/$TAG/package_release.json\",
+                  \"filename\": \"pkg-release.json\",
+                  \"download_url\": \"https://github.com/${{ github.repository }}/releases/download/$TAG/pkg-release.json\",
                   \"checksum\": null,
                   \"checksum_type\": null,
                   \"size\": null
@@ -264,7 +264,7 @@ jobs:
               \"checksum_type\": \"sha256\"
             }
           }
-          " > package_release.json
+          " > pkg-release.json
 
     - name: Upload package release tarball
       if: ${{ steps.to_release.outputs.release == 'Y' }}
@@ -284,6 +284,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./package_release.json
-        asset_name: package_release.json
+        asset_path: ./pkg-release.json
+        asset_name: pkg-release.json
         asset_content_type: application/json
