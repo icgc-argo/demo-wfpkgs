@@ -1,10 +1,10 @@
 {
     "name": "demo-utils",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "Package with helper utilities",
     "main": "main.nf",
     "scripts": {
-        "test": "pushd tests && ./run_tests.sh; popd"
+        "test": "wfpm test"
     },
     "repository": {
         "type": "git",
