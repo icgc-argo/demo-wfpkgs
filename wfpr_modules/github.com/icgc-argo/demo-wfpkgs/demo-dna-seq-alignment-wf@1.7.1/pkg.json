@@ -1,10 +1,10 @@
 {
     "name": "demo-dna-seq-alignment-wf",
-    "version": "1.7.1-1.3.1",
-    "description": "DNA Seq Alignment Workflow with QC Metrics Collection",
+    "version": "1.7.1",
+    "description": "DNA Seq Alignment Workflow",
     "main": "main.nf",
     "scripts": {
-        "test": "wfpm test"
+        "test": "pushd tests && ./run_tests.sh; popd"
     },
     "deprecated": false,
     "keywords": [
@@ -12,16 +12,15 @@
         "dna-seq",
         "alignment",
         "bwa",
-        "markduplicate",
-        "qc metrics"
+        "markduplicate"
     ],
     "repository": {
         "type": "git",
         "url": "https://github.com/icgc-argo/demo-wfpkgs.git"
     },
     "dependencies": [
-        "github.com/icgc-argo/demo-wfpkgs/demo-aligned-seq-qc@1.1.0",
-        "github.com/icgc-argo/demo-wfpkgs/demo-dna-seq-alignment-wf@1.7.1",
+        "github.com/icgc-argo/demo-wfpkgs/demo-bwa-mem-aligner@1.22.0",
+        "github.com/icgc-argo/demo-wfpkgs/demo-bam-merge-sort-markdup@1.12.0",
         "github.com/icgc-argo/demo-wfpkgs/demo-utils@1.2.0"
     ],
     "devDependencies": [],
@@ -29,6 +28,10 @@
         {
             "name": "Junjun Zhang",
             "email": "junjun.zhang@oicr.on.ca"
+        },
+        {
+            "name": "Linda Xiang",
+            "email": "linda.xiang@oicr.on.ca"
         }
     ],
     "license": "AGPL-3.0",
