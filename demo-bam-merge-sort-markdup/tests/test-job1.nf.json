@@ -9,5 +9,5 @@
   "markdup": false,
   "cpus": 1,
   "mem": 2,
-  "container_registry": "quay.io"
+  "container_registry": "ghcr.io"
 }
