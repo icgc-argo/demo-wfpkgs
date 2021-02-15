@@ -20,11 +20,13 @@
 /*
  * Contributors:
  *   Junjun Zhang <junjun.zhang@oicr.on.ca>
+ *   Linda Xiang <linda.xiang@oicr.on.ca>
  */
 
+
 nextflow.enable.dsl = 2
-name = 'dna-seq-processing'
-version = '1.7.1-1.3.1'
+name = 'demo-dna-seq-alignment-wf'
+version = '1.7.1'
 
 
 params.ref_genome_fa = ""
@@ -60,66 +62,60 @@ bamMergeSortMarkdup_params = [
     *:(params.bamMergeSortMarkdup ?: [:])
 ]
 
-DnaAln_params = [
-    'cleanup': false,  // very important to set this to 'false', so this current workflow can control when to perform cleanup
-    'bwaMemAligner': bwaMemAligner_params,
-    'bamMergeSortMarkdup': bamMergeSortMarkdup_params
-]
 
-
+// Include all modules and pass params
 include {
+    getBwaSecondaryFiles;
     getSecondaryFiles;
     cleanupWorkdir as cleanup
-} from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-utils@1.1.0/main.nf'
-include { DnaAln } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-dna-seq-alignment-wf@1.6.0/main.nf' params(DnaAln_params)
-include { alignedSeqQC } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-aligned-seq-qc@1.0.0/aligned-seq-qc.nf' params(params)
+} from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-utils@1.2.0/main.nf'
+
+include { bwaMemAligner as bwaMem } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-bwa-mem-aligner@1.22.0/bwa-mem-aligner.nf' params(bwaMemAligner_params)
+include { bamMergeSortMarkdup as merSorMkdup } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-bam-merge-sort-markdup@1.12.0/bam-merge-sort-markdup.nf' params(bamMergeSortMarkdup_params)
 
 
-workflow DnaSeqProcess {
+workflow DnaAln {
     take:
         ref_genome_fa
         metadata
-        lane_bams
+        lane_bams  // aka uBAM
         tempdir
 
     main:
-        // alignment and markduplicate
-        DnaAln(
-            ref_genome_fa,
-            metadata,
-            lane_bams,
-            tempdir
+        // use scatter to run BWA alignment for each lane_bams (aka uBAM) in parallel
+        bwaMem(
+            Channel.fromPath(lane_bams, checkIfExists: true).flatten(),
+            Channel.fromPath(ref_genome_fa + '.gz', checkIfExists: true).collect(),
+            Channel.fromPath(getBwaSecondaryFiles(ref_genome_fa + '.gz'), checkIfExists: true).collect(),
+            Channel.fromPath(metadata, checkIfExists: true).collect(),
+            Channel.fromPath(tempdir).collect(),
+            true  // no need to wait for other process, so give it a true rightaway
         )
 
-        // QC aligned sequence
-        alignedSeqQC(
-            DnaAln.out.merged_aligned_seq,
+        // collect aligned lane bams for merge and markdup
+        merSorMkdup(
+            bwaMem.out.aligned_bam.collect(),
             Channel.fromPath(ref_genome_fa + '.gz', checkIfExists: true).collect(),
             Channel.fromPath(getSecondaryFiles(ref_genome_fa + '.gz', ['fai', 'gzi']), checkIfExists: true).collect(),
-            true  // no need to wait for additional process other than getting the aligned seq
+            Channel.fromPath(tempdir).collect(),
         )
 
-        // cleanup workdirs
         if (params.cleanup) {
             cleanup(
-                DnaAln.out.aligned_lane_bams.concat(
-                    DnaAln.out.merged_aligned_seq,
-                    alignedSeqQC.out
-                ).collect(),
-                true
+                bwaMem.out.concat(merSorMkdup.out).collect(),
+                true  // we don't need to wait for any other process, so just give it a true here
             )
         }
 
     emit:
-        aligned_lane_bams = DnaAln.out.aligned_lane_bams
-        merged_aligned_seq = DnaAln.out.merged_aligned_seq
-        merged_aligned_seq_idx = DnaAln.out.merged_aligned_seq_idx
-        aligned_seq_qc_metrics = alignedSeqQC.out.metrics
+        aligned_lane_bams = bwaMem.out.aligned_bam
+        merged_aligned_seq = merSorMkdup.out.merged_seq
+        merged_aligned_seq_idx = merSorMkdup.out.merged_seq_idx
 }
 
 
 workflow {
-    DnaSeqProcess(
+    DnaAln(
         params.ref_genome_fa,
         params.metadata,
         params.lane_bams,
