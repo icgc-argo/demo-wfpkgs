@@ -1,22 +1,30 @@
 {
-    "name": "demo-bwa-mem-aligner",
-    "version": "1.22.0",
-    "description": "BWA MEM Aligner",
-    "main": "bwa-mem-aligner.nf",
+    "name": "demo-utils",
+    "version": "1.2.0",
+    "description": "Package with helper utilities",
+    "main": "main.nf",
     "scripts": {
         "test": "wfpm test"
     },
-    "deprecated": false,
-    "keywords": [
-        "bioinformatics",
-        "alignment",
-        "dna-seq",
-        "bwa"
-    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/icgc-argo/demo-wfpkgs.git"
     },
+    "deprecated": false,
+    "keywords": [
+        "bioinformatics",
+        "utilities",
+        "secondary file",
+        "workdir cleanup"
+    ],
+    "contributors": [
+        {
+            "name": "Junjun Zhang",
+            "email": "junjun.zhang@oicr.on.ca"
+        }
+    ],
+    "license": "AGPL-3.0",
+    "dependencies": [],
     "container": {
         "registries": [
             {
@@ -33,21 +41,6 @@
             }
         ]
     },
-    "dependencies": [],
-    "devDependencies": [
-        "github.com/icgc-argo/demo-wfpkgs/demo-utils@1.2.0"
-    ],
-    "contributors": [
-        {
-            "name": "Junjun Zhang",
-            "email": "junjun.zhang@oicr.on.ca"
-        },
-        {
-            "name": "Linda Xiang",
-            "email": "linda.xiang@oicr.on.ca"
-        }
-    ],
-    "license": "AGPL-3.0",
     "bugReport": "https://github.com/icgc-argo/demo-wfpkgs/issues",
     "homepage": "https://github.com/icgc-argo/demo-wfpkgs#readme"
 }
