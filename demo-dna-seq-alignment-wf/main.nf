@@ -25,7 +25,7 @@
 
 
 nextflow.enable.dsl = 2
-name = 'dna-seq-alignment'
+name = 'demo-dna-seq-alignment-wf'
 version = '1.7.1'
 
 
@@ -38,6 +38,7 @@ params.cpus = 1
 params.mem = 1
 params.tempdir = "NO_DIR"
 params.publish_dir = ""
+params.container_registry = ""
 
 params.bwaMemAligner = [:]
 params.bamMergeSortMarkdup = [:]
