@@ -23,22 +23,31 @@
  *   Linda Xiang <linda.xiang@oicr.on.ca>
  */
 
-
-nextflow.preview.dsl = 2
-version = '1.0.0'
+/********************************************************************/
+/* this block is auto-generated based on info from pkg.json where   */
+/* changes can be made if needed, do NOT modify this block manually */
+nextflow.enable.dsl = 2
+name = 'demo-aligned-seq-qc'
+version = '1.1.0'
+container = [
+    'ghcr.io': 'ghcr.io/icgc-argo/demo-wfpkgs.demo-aligned-seq-qc',
+    'quay.io': 'quay.io/icgc-argo/demo-wfpkgs.demo-aligned-seq-qc'
+]
+default_container_registry = 'ghcr.io'
+/********************************************************************/
 
 params.seq = ""
 params.container_version = ""
 params.ref_genome_gz = ""
 
-params.container_registry = ""
+params.container_registry = default_container_registry
 params.publish_dir = ""
 params.cpus = 1
 params.mem = 2  // in GB
 
 
 process alignedSeqQC {
-  container "${params.container_registry ?: "quay.io"}/icgc-argo/demo-aligned-seq-qc:${params.container_version ?: version}"
+  container "${container[params.container_registry]}:${params.container_version ?: version}"
   publishDir "${params.publish_dir}/${task.process.replaceAll(':', '_')}",
     mode: "copy",
     enabled: "${params.publish_dir ? true : ''}"
