@@ -22,7 +22,6 @@
     "dependencies": [
         "github.com/icgc-argo/demo-wfpkgs/demo-aligned-seq-qc@1.0.0",
         "github.com/icgc-argo/demo-wfpkgs/demo-dna-seq-alignment@1.5.5",
-        "github.com/icgc-argo/demo-wfpkgs/demo-aligned-seq-qc@0.2.2.1",
         "github.com/icgc-argo/demo-wfpkgs/demo-utils@1.0.0"
     ],
     "devDependencies": [],
