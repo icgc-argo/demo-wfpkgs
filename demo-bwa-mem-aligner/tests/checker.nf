@@ -34,7 +34,7 @@ params.publish_dir = ""
 params.container_registry = 'ghcr.io'
 
 include { bwaMemAligner } from '../bwa-mem-aligner' params(params)
-include { getBwaSecondaryFiles } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-utils@1.0.0/main.nf'
+include { getBwaSecondaryFiles } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-utils@1.2.0/main.nf'
 
 
 Channel
