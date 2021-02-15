@@ -6,5 +6,5 @@
   ],
   "ref_genome_gz": "reference/tiny-grch38-chr11-530001-537000.fa.gz",
   "publish_dir": "outdir",
-  "container_registry": "quay.io"
+  "container_registry": "ghcr.io"
 }
