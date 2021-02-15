@@ -46,6 +46,7 @@ bwaMemAligner_params = [
     'cpus': params.cpus,
     'mem': params.mem,
     'publish_dir': params.publish_dir,
+    'container_registry': params.container_registry,
     *:(params.bwaMemAligner ?: [:])
 ]
 

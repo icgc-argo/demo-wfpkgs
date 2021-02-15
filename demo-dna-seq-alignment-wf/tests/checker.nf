@@ -31,6 +31,7 @@ params.ref_genome_fa = "reference/tiny-grch38-chr11-530001-537000.fa.gz"
 params.metadata = "NO_FILE"
 params.tempdir = "NO_DIR"
 params.publish_dir = "outdir"
+params.container_registry = "ghcr.io"
 
 include { DnaAln } from '../main.nf' params(params)
 
