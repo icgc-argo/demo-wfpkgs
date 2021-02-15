@@ -1,29 +1,42 @@
 {
-    "name": "demo-dna-seq-alignment",
-    "version": "1.7.0",
-    "description": "DNA Seq Alignment Workflow",
-    "main": "main.nf",
+    "name": "demo-bwa-mem-aligner",
+    "version": "1.22.0",
+    "description": "BWA MEM Aligner",
+    "main": "bwa-mem-aligner.nf",
     "scripts": {
-        "test": "pushd tests && ./run_tests.sh; popd"
+        "test": "wfpm test"
     },
     "deprecated": false,
     "keywords": [
         "bioinformatics",
-        "dna-seq",
         "alignment",
-        "bwa",
-        "markduplicate"
+        "dna-seq",
+        "bwa"
     ],
     "repository": {
         "type": "git",
         "url": "https://github.com/icgc-argo/demo-wfpkgs.git"
     },
-    "dependencies": [
-        "github.com/icgc-argo/demo-wfpkgs/demo-bwa-mem-aligner@1.22.0",
-        "github.com/icgc-argo/demo-wfpkgs/demo-bam-merge-sort-markdup@1.12.0",
+    "container": {
+        "registries": [
+            {
+                "registry": "quay.io",
+                "type": "docker",
+                "org": "icgc-argo",
+                "default": true
+            },
+            {
+                "registry": "ghcr.io",
+                "type": "docker",
+                "org": "icgc-argo",
+                "default": false
+            }
+        ]
+    },
+    "dependencies": [],
+    "devDependencies": [
         "github.com/icgc-argo/demo-wfpkgs/demo-utils@1.2.0"
     ],
-    "devDependencies": [],
     "contributors": [
         {
             "name": "Junjun Zhang",
