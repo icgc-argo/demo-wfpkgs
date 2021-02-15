@@ -23,9 +23,18 @@
  *   Linda Xiang <linda.xiang@oicr.on.ca>
  */
 
-
+/********************************************************************/
+/* this block is auto-generated based on info from pkg.json where   */
+/* changes can be made if needed, do NOT modify this block manually */
 nextflow.enable.dsl = 2
+name = 'demo-bam-merge-sort-markdup'
 version = '1.12.0'
+container = [
+    'ghcr.io': 'ghcr.io/icgc-argo/demo-wfpkgs.demo-bam-merge-sort-markdup',
+    'quay.io': 'quay.io/icgc-argo/demo-wfpkgs.demo-bam-merge-sort-markdup'
+]
+default_container_registry = 'quay.io'
+/********************************************************************/
 
 params.aligned_lane_bams = ""
 params.ref_genome_gz = ""
@@ -34,7 +43,7 @@ params.markdup = true
 params.output_format = "cram"
 params.lossy = false
 params.container_version = ""
-params.container_registry = ""
+params.container_registry = default_container_registry
 params.cpus = 1
 params.mem = 2  // in GB
 params.publish_dir = ""
@@ -42,7 +51,7 @@ params.tempdir = ""
 
 
 process bamMergeSortMarkdup {
-  container "${params.container_registry ?: "quay.io"}/icgc-argo/demo-bam-merge-sort-markdup:${params.container_version ?: version}"
+  container "${container[params.container_registry]}:${params.container_version ?: version}"
   publishDir "${params.publish_dir}/${task.process.replaceAll(':', '_')}",
     mode: "copy",
     enabled: "${params.publish_dir ? true : ''}"
