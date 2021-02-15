@@ -1,10 +1,10 @@
 {
     "name": "demo-bwa-mem-aligner",
-    "version": "1.21.0",
+    "version": "1.22.0",
     "description": "BWA MEM Aligner",
     "main": "bwa-mem-aligner.nf",
     "scripts": {
-        "test": "pushd tests && ./run_tests.sh; popd"
+        "test": "wfpm test"
     },
     "deprecated": false,
     "keywords": [
