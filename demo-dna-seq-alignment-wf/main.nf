@@ -54,6 +54,7 @@ bamMergeSortMarkdup_params = [
     'cpus': params.cpus,
     'mem': params.mem,
     'publish_dir': params.publish_dir,
+    'container_registry': params.container_registry,
     'output_format': 'cram',
     'markdup': true,
     'lossy': false,
