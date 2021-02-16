@@ -26,7 +26,7 @@
 
 nextflow.enable.dsl = 2
 name = 'demo-dna-seq-alignment-wf'
-version = '1.7.1'
+version = '1.7.2'
 
 
 params.ref_genome_fa = ""
