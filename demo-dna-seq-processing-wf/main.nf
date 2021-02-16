@@ -24,7 +24,7 @@
 
 nextflow.enable.dsl = 2
 name = 'dna-seq-processing'
-version = '1.6.0-1.2.0'
+version = '1.7.1-1.3.1'
 
 
 params.ref_genome_fa = ""
@@ -36,6 +36,7 @@ params.cpus = 1
 params.mem = 1
 params.tempdir = "NO_DIR"
 params.publish_dir = ""
+params.container_registry = ""
 
 params.bwaMemAligner = [:]
 params.bamMergeSortMarkdup = [:]
@@ -44,6 +45,7 @@ bwaMemAligner_params = [
     'cpus': params.cpus,
     'mem': params.mem,
     'publish_dir': params.publish_dir,
+    'container_registry': params.container_registry,
     *:(params.bwaMemAligner ?: [:])
 ]
 
@@ -51,6 +53,7 @@ bamMergeSortMarkdup_params = [
     'cpus': params.cpus,
     'mem': params.mem,
     'publish_dir': params.publish_dir,
+    'container_registry': params.container_registry,
     'output_format': 'cram',
     'markdup': true,
     'lossy': false,
