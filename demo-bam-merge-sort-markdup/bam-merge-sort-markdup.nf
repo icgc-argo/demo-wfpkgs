@@ -28,7 +28,7 @@
 /* changes can be made if needed, do NOT modify this block manually */
 nextflow.enable.dsl = 2
 name = 'demo-bam-merge-sort-markdup'
-version = '1.12.0'
+version = '1.12.1'
 container = [
     'ghcr.io': 'ghcr.io/icgc-argo/demo-wfpkgs.demo-bam-merge-sort-markdup',
     'quay.io': 'quay.io/icgc-argo/demo-wfpkgs.demo-bam-merge-sort-markdup'
