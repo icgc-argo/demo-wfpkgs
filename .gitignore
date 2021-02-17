@@ -70,3 +70,5 @@ docs/_build
 work
 outdir
 trace.txt*
+
+wfpr_modules/github.com/*/*/*/tests
