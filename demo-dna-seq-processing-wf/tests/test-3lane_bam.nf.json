@@ -7,5 +7,7 @@
     "ref_genome_fa": "reference/tiny-grch38-chr11-530001-537000.fa",
     "cpus": 2,
     "mem": 1.5,
-    "metadata": "input/0ae2c59b-2976-485c-a2c5-9b2976085cbf.one-bam.sequencing_experiment.song-analysis.json"
+    "container_registry": "ghcr.io",
+    "metadata": "input/0ae2c59b-2976-485c-a2c5-9b2976085cbf.one-bam.sequencing_experiment.song-analysis.json",
+    "publish_dir": "outdir"
 }
