@@ -10,4 +10,4 @@ code was simply copied over here) as the ARGO productoin workflow.
 
 ## Workflow Diagram
 
-![](https://raw.githubusercontent.com/icgc-argo/demo-wfpkgs/_to_be_updated_/workflow-diagram.png)
+![](https://raw.githubusercontent.com/icgc-argo/demo-wfpkgs/18653d893dc276641bf4ffe558ace99b7591fd71/workflow-diagram.png)
