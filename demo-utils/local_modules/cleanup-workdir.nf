@@ -26,23 +26,24 @@
 /* this block is auto-generated based on info from pkg.json where   */
 /* changes can be made if needed, do NOT modify this block manually */
 nextflow.enable.dsl = 2
-version = '1.2.0'
+version = '1.3.0'
 container = [
     'ghcr.io': 'ghcr.io/icgc-argo/demo-wfpkgs.demo-utils',
     'quay.io': 'quay.io/icgc-argo/demo-wfpkgs.demo-utils'
 ]
-default_container_registry = 'quay.io'
+default_container_registry = 'ghcr.io'
 /********************************************************************/
 
 params.cpus = 1
 params.mem = 1
 params.files_to_delete = 'NO_FILE'
 params.container_version = ''
-params.container_registry = default_container_registry
+params.container = ''
+params.container_registry = ''
 
 
 process cleanupWorkdir {
-    container "${container[params.container_registry]}:${params.container_version ?: version}"
+    container "${params.container ?: container[params.container_registry ?: default_container_registry]}:${params.container_version ?: version}"
     cpus params.cpus
     memory "${params.mem} GB"
 

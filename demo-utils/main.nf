@@ -27,7 +27,7 @@
 /* changes can be made if needed, do NOT modify this block manually */
 nextflow.enable.dsl = 2
 name = 'demo-utils'
-version = '1.2.0'
+version = '1.3.0'
 /********************************************************************/
 
 
