@@ -24,7 +24,7 @@
 
 nextflow.enable.dsl = 2
 name = 'dna-seq-processing'
-version = '1.6.0-1.2.0'
+version = '1.7.2-1.3.2'
 
 
 params.ref_genome_fa = ""
@@ -36,6 +36,7 @@ params.cpus = 1
 params.mem = 1
 params.tempdir = "NO_DIR"
 params.publish_dir = ""
+params.container_registry = ""
 
 params.bwaMemAligner = [:]
 params.bamMergeSortMarkdup = [:]
@@ -44,6 +45,7 @@ bwaMemAligner_params = [
     'cpus': params.cpus,
     'mem': params.mem,
     'publish_dir': params.publish_dir,
+    'container_registry': params.container_registry,
     *:(params.bwaMemAligner ?: [:])
 ]
 
@@ -51,6 +53,7 @@ bamMergeSortMarkdup_params = [
     'cpus': params.cpus,
     'mem': params.mem,
     'publish_dir': params.publish_dir,
+    'container_registry': params.container_registry,
     'output_format': 'cram',
     'markdup': true,
     'lossy': false,
@@ -67,9 +70,9 @@ DnaAln_params = [
 include {
     getSecondaryFiles;
     cleanupWorkdir as cleanup
-} from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-utils@1.1.0/main.nf'
-include { DnaAln } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-dna-seq-alignment-wf@1.6.0/main.nf' params(DnaAln_params)
-include { alignedSeqQC } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-aligned-seq-qc@1.0.0/aligned-seq-qc.nf' params(params)
+} from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-utils@1.2.0/main.nf'
+include { DnaAln } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-dna-seq-alignment-wf@1.7.2/main.nf' params(DnaAln_params)
+include { alignedSeqQC } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-aligned-seq-qc@1.1.0/aligned-seq-qc.nf' params(params)
 
 
 workflow DnaSeqProcess {

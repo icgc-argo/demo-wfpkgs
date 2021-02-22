@@ -28,11 +28,11 @@ nextflow.enable.dsl=2
 params.aligned_lane_bams = ""
 params.ref_genome_gz = ""
 params.tempdir = "NO_DIR"
-params.container_registry = ""
+params.container_registry = "ghcr.io"
 
 
 include { bamMergeSortMarkdup } from '../bam-merge-sort-markdup.nf' params(params)
-include { getSecondaryFiles } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-utils@1.0.0/main.nf'
+include { getSecondaryFiles } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-utils@1.2.0/main.nf'
 
 
 Channel

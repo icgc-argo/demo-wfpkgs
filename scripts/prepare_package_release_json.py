@@ -12,8 +12,10 @@ def update_image_digest(package_meta, release_meta_str):
 
     release_meta = json.loads(release_meta_str)
 
-    package_meta['container']['_image_digest'] = release_meta['_image_digest']
+    if 'container' in package_meta:
+        package_meta['container']['_image_digest'] = release_meta['_image_digest']
     package_meta['_release'] = release_meta['_release']
+    package_meta['_wfpm_ver'] = release_meta.get('_wfpm_ver')
 
     return package_meta
 

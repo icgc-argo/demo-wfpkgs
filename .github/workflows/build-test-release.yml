@@ -15,6 +15,7 @@ jobs:
       pkg_name: ${{ steps.get_pkg_info.outputs.pkg_name }}
       pkg_ver: ${{ steps.get_pkg_info.outputs.pkg_ver }}
       docker_file: ${{ steps.get_pkg_info.outputs.docker_file }}
+      repo_lowercase: ${{ steps.repo_lowercase.outputs.lowercase }}
     steps:
     - uses: actions/checkout@v2
 
@@ -22,14 +23,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.6
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install wfpm
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        if [ -f requirements-test.txt ]; then pip install -r requirements-test.txt; fi
-        if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
 
     - name: Extract package name and version from branch name
       id: get_pkg_info
@@ -54,13 +47,10 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.CR_PAT }}
 
-    - name: Login to Quay.io Registry
-      if: ${{ steps.get_pkg_info.outputs.branch != 'main' && steps.get_pkg_info.outputs.docker_file != ''}}
-      uses: docker/login-action@v1
+    - id: repo_lowercase
+      uses: ASzc/change-string-case-action@v1
       with:
-        registry: quay.io
-        username: "icgc-argo+github_actions"
-        password: ${{ secrets.QAUY_RT }}
+        string: ${{ github.repository }}
 
     - name: Build image
       if: ${{ steps.get_pkg_info.outputs.branch != 'main' && steps.get_pkg_info.outputs.docker_file != ''}}
@@ -71,35 +61,17 @@ jobs:
         platforms: linux/amd64
         load: true
         tags: |
-          ghcr.io/${{ github.repository }}.${{ steps.get_pkg_info.outputs.pkg_name }}:${{ steps.get_pkg_info.outputs.pkg_ver }}
-          quay.io/${{ github.repository }}.${{ steps.get_pkg_info.outputs.pkg_name }}:${{ steps.get_pkg_info.outputs.pkg_ver }}
+          ghcr.io/${{ steps.repo_lowercase.outputs.lowercase }}.${{ steps.get_pkg_info.outputs.pkg_name }}:${{ steps.get_pkg_info.outputs.pkg_ver }}
 
     - name: Push image to ghcr.io
       id: push_to_ghcr
       if: ${{ steps.get_pkg_info.outputs.branch != 'main' && steps.get_pkg_info.outputs.docker_file != ''}}
       shell: bash
       run: |
-        docker push ghcr.io/${{ github.repository }}.${{ steps.get_pkg_info.outputs.pkg_name }}:${{ steps.get_pkg_info.outputs.pkg_ver }} | tee ./ghcr.io.stdout
+        docker push ghcr.io/${{ steps.repo_lowercase.outputs.lowercase }}.${{ steps.get_pkg_info.outputs.pkg_name }}:${{ steps.get_pkg_info.outputs.pkg_ver }} | tee ./ghcr.io.stdout
         IMAGE_SHA=$(cat ./ghcr.io.stdout | tr ' ' '\n' | grep 'sha256:' | awk -F':' '{print $2}')
         echo "::set-output name=image_sha256::$(echo ${IMAGE_SHA})"
         echo "::set-output name=created_at::$(date -u +%FT%TZ)"
-
-    - name: Push image to quay.io
-      id: push_to_quay
-      if: ${{ steps.get_pkg_info.outputs.branch != 'main' && steps.get_pkg_info.outputs.docker_file != ''}}
-      shell: bash
-      run: |
-        docker push quay.io/${{ github.repository }}.${{ steps.get_pkg_info.outputs.pkg_name }}:${{ steps.get_pkg_info.outputs.pkg_ver }} | tee ./quay.io.stdout
-        IMAGE_SHA=$(cat ./quay.io.stdout | tr ' ' '\n' | grep 'sha256:' | awk -F':' '{print $2}')
-        echo "::set-output name=image_sha256::$(echo ${IMAGE_SHA})"
-
-    - name: Compare image digests
-      if: ${{ steps.get_pkg_info.outputs.branch != 'main' && steps.get_pkg_info.outputs.docker_file != ''}}
-      run: |
-        if [[ "${{ steps.push_to_ghcr.outputs.image_sha256 }}" != "${{ steps.push_to_quay.outputs.image_sha256 }}" ]]; then
-          echo "This should not happen, but the image digests from ghcr.io and quay.io are different. See above push steps for details."
-          exit 1
-        fi
 
 
   test-and-release:
@@ -116,7 +88,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install wfpm
+        pip install wfpm
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         if [ -f requirements-test.txt ]; then pip install -r requirements-test.txt; fi
         if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
@@ -128,19 +100,11 @@ jobs:
         sudo mv nextflow /usr/local/bin/
 
     - name: "Login to GitHub Container Registry"  # normally shouldn't need to loging, but new image when just created is private
-      if: ${{ needs.build.outputs.branch != 'main' }}
       uses: docker/login-action@v1
       with:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
         password: ${{ secrets.CR_PAT }}
-
-    - name: "Login to Quay.io Registry"  # normally shouldn't need to loging, but new image when just created is private
-      uses: docker/login-action@v1
-      with:
-        registry: quay.io
-        username: "icgc-argo+github_actions"
-        password: ${{ secrets.QAUY_RT }}
 
     - name: Run tests for all packages
       if: ${{ needs.build.outputs.branch == 'main' }}
@@ -150,7 +114,7 @@ jobs:
     - name: Run tests for the current package only
       if: ${{ needs.build.outputs.branch != 'main' }}
       run: |
-        cd ./${{needs.build.outputs.pkg_name}}/tests
+        cd ./${{needs.build.outputs.pkg_name}}
         wfpm test
 
     - name: Check whether to proceed with release
@@ -180,7 +144,7 @@ jobs:
         echo "::set-output name=pkg_ver::$(echo ${PKG_VER})"
         if [[ -f "./$PKG_NAME/Dockerfile" ]]; then
           echo "::set-output name=docker_file::$(echo ./$PKG_NAME/Dockerfile)"
-          echo "::set-output name=docker_image::$(echo ghcr.io/${{ github.repository }}.$PKG_NAME:$PKG_VER)"
+          echo "::set-output name=docker_image::$(echo ghcr.io/${{ needs.build.outputs.repo_lowercase }}.$PKG_NAME:$PKG_VER)"
         else
           echo "::set-output name=docker_file::"
           echo "::set-output name=docker_image::"
@@ -192,7 +156,7 @@ jobs:
       shell: bash
       run: |
         ./scripts/cleanup_temp_files.sh  # just in case
-        PKG_TAR=${{ steps.get_pkg_info.outputs.pkg_name }}.${{ steps.get_pkg_info.outputs.pkg_ver }}.tar.gz
+        PKG_TAR=${{ steps.get_pkg_info.outputs.pkg_name }}.v${{ steps.get_pkg_info.outputs.pkg_ver }}.tar.gz
         pushd ${{ steps.get_pkg_info.outputs.pkg_name }}
         tar --exclude=wfpr_modules --dereference -czvf ../$PKG_TAR .
         popd
@@ -208,10 +172,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.get_pkg_info.outputs.pkg_name }}.${{ steps.get_pkg_info.outputs.pkg_ver }}
-        release_name: ${{ steps.get_pkg_info.outputs.pkg_name }}.${{ steps.get_pkg_info.outputs.pkg_ver }}
+        tag_name: ${{ steps.get_pkg_info.outputs.pkg_name }}.v${{ steps.get_pkg_info.outputs.pkg_ver }}
+        release_name: ${{ steps.get_pkg_info.outputs.pkg_name }}.v${{ steps.get_pkg_info.outputs.pkg_ver }}
         body: |
-          * Release `${{ steps.get_pkg_info.outputs.pkg_name }}.${{ steps.get_pkg_info.outputs.pkg_ver }}` (${{ github.sha }})
+          * Release `${{ steps.get_pkg_info.outputs.pkg_name }}.v${{ steps.get_pkg_info.outputs.pkg_ver }}` (${{ github.sha }})
           * Package `${{ steps.prep_assets.outputs.pkg_tar }}` (sha256: `${{ steps.prep_assets.outputs.pkg_tar_sha }}`)
         draft: false
         prerelease: false
@@ -220,6 +184,7 @@ jobs:
       if: ${{ steps.to_release.outputs.release == 'Y' }}
       shell: bash
       run: |
+        WFPM_VER=$(wfpm -v | cut -d ' ' -f 2)
         if [[ '${{ steps.get_pkg_info.outputs.docker_file }}' != '' ]]; then
           docker pull ${{ steps.get_pkg_info.outputs.docker_image }} | tee image.info
           IMAGE_SHA=$(cat ./image.info | tr ' ' '\n' | grep 'sha256:' | awk -F':' '{print $2}')
@@ -228,7 +193,7 @@ jobs:
         fi
 
         # temporary solution
-        TAG="${{ steps.get_pkg_info.outputs.pkg_name }}.${{ steps.get_pkg_info.outputs.pkg_ver }}"
+        TAG="${{ steps.get_pkg_info.outputs.pkg_name }}.v${{ steps.get_pkg_info.outputs.pkg_ver }}"
         ./scripts/prepare_package_release_json.py -p ${{ steps.get_pkg_info.outputs.pkg_name }}/pkg.json -d \
           "
           {
@@ -260,7 +225,8 @@ jobs:
             \"_image_digest\": {
               \"checksum\": \"$IMAGE_SHA\",
               \"checksum_type\": \"sha256\"
-            }
+            },
+            \"_wfpm_ver\": \"$WFPM_VER\"
           }
           " > pkg-release.json
 
