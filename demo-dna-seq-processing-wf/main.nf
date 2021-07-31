@@ -24,7 +24,7 @@
 
 nextflow.enable.dsl = 2
 name = 'dna-seq-processing'
-version = '1.7.2-1.3.2'
+version = '1.7.2-1.4.0'
 
 
 params.ref_genome_fa = ""
