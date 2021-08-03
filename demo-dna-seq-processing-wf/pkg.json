@@ -1,6 +1,6 @@
 {
-    "name": "demo-dna-seq-alignment-wf",
-    "version": "1.7.2-1.3.2",
+    "name": "demo-dna-seq-processing-wf",
+    "version": "1.7.2-1.4.0",
     "description": "DNA Seq Alignment Workflow with QC Metrics Collection",
     "main": "main.nf",
     "scripts": {
