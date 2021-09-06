@@ -8,5 +8,6 @@
     "cpus": 2,
     "mem": 1.5,
     "metadata": "test_data/input/0ae2c59b-2976-485c-a2c5-9b2976085cbf.one-bam.sequencing_experiment.song-analysis.json",
-    "container_registry": "quay.io"
+    "container_registry": "ghcr.io",
+    "publish_dir": "outdir"
 }

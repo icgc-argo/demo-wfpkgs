@@ -7,5 +7,6 @@
     "metadata": "input/0ae2c59b-2976-485c-a2c5-9b2976085cbf.bam-1.sequencing_experiment.song-analysis.json",
     "tempdir": "/tmp/",
     "cpus": 2,
-    "container_registry": "quay.io"
+    "container_registry": "ghcr.io",
+    "publish_dir": "outdir"
 }

@@ -26,7 +26,7 @@
 
 nextflow.enable.dsl = 2
 name = 'demo-dna-seq-alignment-wf'
-version = '1.7.2'
+version = '1.7.1'
 
 
 params.ref_genome_fa = ""
@@ -71,7 +71,7 @@ include {
 } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-utils@1.2.0/main.nf'
 
 include { bwaMemAligner as bwaMem } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-bwa-mem-aligner@1.22.0/bwa-mem-aligner.nf' params(bwaMemAligner_params)
-include { bamMergeSortMarkdup as merSorMkdup } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-bam-merge-sort-markdup@1.12.1/bam-merge-sort-markdup.nf' params(bamMergeSortMarkdup_params)
+include { bamMergeSortMarkdup as merSorMkdup } from './wfpr_modules/github.com/icgc-argo/demo-wfpkgs/demo-bam-merge-sort-markdup@1.12.0/bam-merge-sort-markdup.nf' params(bamMergeSortMarkdup_params)
 
 
 workflow DnaAln {
