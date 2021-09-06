@@ -28,7 +28,7 @@
 /* changes can be made if needed, do NOT modify this block manually */
 nextflow.enable.dsl = 2
 name = 'demo-aligned-seq-qc'
-version = '1.1.0'
+version = '1.1.1'
 container = [
     'ghcr.io': 'ghcr.io/icgc-argo/demo-wfpkgs.demo-aligned-seq-qc',
     'quay.io': 'quay.io/icgc-argo/demo-wfpkgs.demo-aligned-seq-qc'
